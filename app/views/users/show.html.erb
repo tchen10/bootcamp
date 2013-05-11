@@ -1,18 +1,40 @@
-<h1>User #<%= @user.id %></h1>
+<div class = "row">
+  <div class = "span3">
+    <h1><%= @user.name %></h1>
 
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
+    <p>
+      <b>Email:</b>
+      <%= @user.email %>
+    </p>
+  </div>
 
-<p>
-  <b>Password digest:</b>
-  <%= @user.password_digest %>
-</p>
+  <div class = "span8">
+    <p>Projects:</p>
+    <table class = "table table-hover">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Team</th>
+          <th>Due date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
 
-<p>
-  <b>Name:</b>
-  <%= @user.name %>
-</p>
+      <tbody>
+      <% @user.projects.each do |project| %>
+        <tr>
+          <td><%= link_to project.title, project_url(project) %></td>
+          <td><% project.users.each do |user| %>
+          <p><%= link_to user.name, user_url(user) %><p>
+          <% end %></td>
+          <td><%= project.due_date %></td>
+          <td><%= project.status %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
 
 

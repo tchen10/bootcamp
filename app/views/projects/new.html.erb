@@ -5,36 +5,26 @@
 
 
   <div>
-    <%= label_tag :title %><br />
+    <%= label_tag :title %>
     <%= text_field_tag :title %>
   </div>
 
-    <div>
-    <%= label_tag :description %><br />
-    <%= text_field_tag :description %>
+  <div>
+    <%= label_tag :description %>
+    <%= text_area_tag :description %>
   </div>
 
-    <div>
-    <%= label_tag :date_created %><br />
-    <%= date_select_tag :date_created %>
+  <div>
+    <%= label_tag :date_created %>
+    <%= date_select :date_created, default:Date.today, order:[:day, :month, :year]%>
   </div>
 
-    <div>
-    <%= label_tag :date_completed %><br />
-    <%= date_select_tag :date_completed %>
+  <div>
+    <%= label_tag :due_date %>
+    <%= date_select :due_date, default:Date.today %>
   </div>
 
-    <div>
-    <%= label_tag :due_date %><br />
-    <%= date_select_tag :due_date %>
-  </div>
 
-    <div>
-    <%= label_tag :status %><br />
-    <%= text_field_tag :status %>
-  </div>
-
-  
   <div>
     <%= submit_tag "Create Project" %>
   </div>

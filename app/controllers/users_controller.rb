@@ -20,6 +20,7 @@ class UsersController < ApplicationController
     @user.name = params[:name]
 
     if @user.save
+      session[:user_id] = @user.id
       redirect_to users_url
     else
       render 'new'

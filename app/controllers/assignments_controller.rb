@@ -16,9 +16,9 @@ class AssignmentsController < ApplicationController
     @assignment = Assignment.new
     @assignment.user_id = params[:user_id]
     @assignment.project_id = params[:project_id]
-    
+
     if @assignment.save
-            redirect_to assignments_url
+            redirect_to project_url(params[:project_id])
           else
       render 'new'
     end
@@ -32,7 +32,7 @@ class AssignmentsController < ApplicationController
     @assignment = Assignment.find_by_id(params[:id])
     @assignment.user_id = params[:user_id]
     @assignment.project_id = params[:project_id]
-    
+
     if @assignment.save
             redirect_to assignments_url
           else

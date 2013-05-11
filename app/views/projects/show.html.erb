@@ -1,13 +1,37 @@
-<h1>Project #<%= @project.id %></h1>
-
-<p>
-  <b>Title:</b>
-  <%= @project.title %>
-</p>
+<h1>Project: <%= @project.title %></h1>
 
 <p>
   <b>Description:</b>
   <%= @project.description %>
+</p>
+
+<p>
+  <b>Team:</b>
+  <ul>
+    <% @project.users.each do |user| %>
+      <li><%= link_to user.name, user_url(user) %></li>
+    <% end %>
+    <li>
+      <%= form_tag(assignments_url, method: 'post') do %>
+        <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :name) %>
+        <%= hidden_field_tag :project_id, @project.id %><%= submit_tag %>
+      <% end %>
+    </li>
+  </ul>
+</p>
+<p>
+  <b>Due date:</b>
+  <%= @project.due_date %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= form_tag(project_url(@project), method: 'put') do %>
+    <%= hidden_field_tag :project_id, @project.id %>
+    <%= select_tag :status, "<option>Incomplete</option><option>In Progress</option><option>Complete!</option>".html_safe %>
+    <%= submit_tag "Update" %>
+
+<% end %>
 </p>
 
 <p>
@@ -20,14 +44,6 @@
   <%= @project.date_completed %>
 </p>
 
-<p>
-  <b>Due date:</b>
-  <%= @project.due_date %>
-</p>
 
-<p>
-  <b>Status:</b>
-  <%= @project.status %>
-</p>
 
 

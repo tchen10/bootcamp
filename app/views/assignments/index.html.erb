@@ -16,9 +16,9 @@
   <tbody>
   <% @assignments.each do |assignment| %>
     <tr>
-      <td><%= assignment.user_id %></td>
-      <td><%= assignment.project_id %></td>
-  
+      <td><%= assignment.user.name %></td>
+      <td><%= assignment.project.title %></td>
+
       <td><%= link_to 'Show', assignment_url(assignment) %></td>
       <td><%= link_to 'Edit', edit_assignment_url(assignment) %></td>
       <td><%= link_to 'Destroy', assignment_url(assignment), method: 'delete', data: { confirm: "Do you really want to delete this assignment?" } %></td>
