@@ -4,10 +4,6 @@
   </div>
 
   <div class="span3">
-    <p>
-      <b>Project:</b>
-      <%= link_to @milestone.project.title, project_url(@milestone.project_id) %>
-    </p>
 
     <p>
       <b>Description:</b>
@@ -26,6 +22,30 @@
 
     <p>
       <%= link_to "Edit", edit_milestone_url(@milestone.id) %> | <%= link_to 'Destroy', milestone_url(@milestone.id), method: 'delete', data: { confirm: "Do you really want to delete this milestone?" } %>
+    </p>
+
+    <p>
+      <b>Project Details:</b>
+      <p><%= link_to @milestone.project.title, project_url(@milestone.project_id) %></p>
+    </p>
+
+    <p>
+      <b>Due date:</b>
+      <%= @milestone.project.due_date %>
+    </p>
+
+    <p>
+      <b>Description:</b>
+      <%= @milestone.project.description %>
+    </p>
+
+    <p>
+      <b>Team:</b>
+      <ul>
+        <% @milestone.project.users.each do |user| %>
+          <li><%= link_to user.name, user_url(user) %></li>
+        <% end %>
+      </ul>
     </p>
   </div>
   <div class="span8">
