@@ -1,0 +1,36 @@
+<h1>Milestones</h1>
+
+<p><%= link_to 'Add a New Milestone', new_milestone_url %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Date created</th>
+      <th>Due date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @milestones.each do |milestone| %>
+    <tr>
+      <td><%= milestone.project_id %></td>
+      <td><%= milestone.title %></td>
+      <td><%= milestone.description %></td>
+      <td><%= milestone.date_created %></td>
+      <td><%= milestone.due_date %></td>
+  
+      <td><%= link_to 'Show', milestone_url(milestone) %></td>
+      <td><%= link_to 'Edit', edit_milestone_url(milestone) %></td>
+      <td><%= link_to 'Destroy', milestone_url(milestone), method: 'delete', data: { confirm: "Do you really want to delete this milestone?" } %></td>
+
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+

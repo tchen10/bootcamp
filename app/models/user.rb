@@ -4,4 +4,5 @@ class User < ActiveRecord::Base
   has_many :projects, :through => :assignments
 
   validates :email, uniqueness: true
+  validates :email, :name, :password, :presence => true
 end

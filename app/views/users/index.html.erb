@@ -8,7 +8,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Email</th>
+      <th>Projects</th>
       <th></th>
       <th></th>
       <th></th>
@@ -19,10 +19,10 @@
   <% @users.each do |user| %>
     <tr>
       <td><%= link_to user.name, user_url(user) %></td>
-      <td><%= user.email %></td>
+      <td><% user.projects.each do |project| %>
+        <p><%= link_to project.title, project_url(project.id)  %><p>
+          <% end %></td>
       <td><%= link_to 'Edit', edit_user_url(user) %></td>
-      <td><%= link_to 'Destroy', user_url(user), method: 'delete', data: { confirm: "Do you really want to delete this user?" } %></td>
-
     </tr>
   <% end %>
   </tbody>

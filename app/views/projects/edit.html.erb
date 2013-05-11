@@ -15,24 +15,13 @@
 
   <div>
     <%= label_tag :date_created %><br />
-     <%= date_select :date_created, :date_created, :default => @project.date_created, :order => [:day, :month, :year] %>
+     <%= date_select :date_created, :date_created, :default => @project.date_created, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
   </div>
 
   <div>
     <%= label_tag :due_date %><br />
-    <%= date_select :due_date, :due_date, :default => @project.due_date, :order => [:day, :month, :year] %>
+    <%= date_select :due_date, :due_date, :default => @project.due_date, :order => [:day, :month, :year ], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
   </div>
-
-    <div>
-    <%= label_tag :date_completed %><br />
-    <%= date_select :date_completed, :date_completed, :default => @project.date_completed, :order => [:day, :month, :year] %>
-  </div>
-
-  <div>
-    <%= label_tag :status %>
-    <%= select_tag :status, "<option>Incomplete</option><option>In Progress</option><option>Complete!</option>".html_safe %>
-  </div>
-
 
   <div>
     <%= submit_tag "Update Project" %>

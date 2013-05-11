@@ -1,0 +1,35 @@
+<h1>Editing Milestone #<%= @milestone.id %></h1>
+
+
+<%= form_tag(milestone_url(@milestone), method: 'put') do %>
+
+  <div>
+    <%= label_tag :project_id %>
+    <%= select_tag :project_id, options_from_collection_for_select(Project.all, :id, :title) %>
+  </div>
+
+  <div>
+    <%= label_tag :title %>
+    <%= text_field_tag :title, @milestone.title %>
+  </div>
+
+  <div>
+    <%= label_tag :description %>
+    <%= text_field_tag :description, @milestone.description %>
+  </div>
+
+  <div>
+    <%= label_tag :date_created %>
+     <%= date_select :date_created, :date_created, :default => @milestone.date_created, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
+  </div>
+
+  <div>
+    <%= label_tag :due_date %>
+    <%= date_select :due_date, :due_date, :default => @milestone.due_date, :order => [:day, :month, :year ], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
+  </div>
+
+  <div>
+    <%= submit_tag "Update Milestone" %>
+  </div>
+
+<% end %>

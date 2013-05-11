@@ -1,49 +1,61 @@
-<h1>Project: <%= @project.title %></h1>
+<div class="row">
+  <div class="span12">
+    <h1>Project: <%= @project.title %></h1>
+  </div>
 
-<p>
-  <b>Description:</b>
-  <%= @project.description %>
-</p>
+    <div class="span3">
+      <p>
+        <b>Status:</b>
+        <%= @project.statuses.last.description %> <p>(updated: <%= @project.statuses.last.date %>)</p>
+        <%= form_tag(statuses_url, method: 'post') do %>
+          <%= hidden_field_tag :project_id, @project.id %>
+          <div id="divdateselect" style="display: none;">
+          <%= date_select :date, default:Date.today %>
+          </div>
+          <%= text_field_tag :description, nil, :placeholder => "What's the status?" %>
+        <% end %>
+      </p>
 
-<p>
-  <b>Team:</b>
-  <ul>
-    <% @project.users.each do |user| %>
-      <li><%= link_to user.name, user_url(user) %></li>
-    <% end %>
-    <li>
-      <%= form_tag(assignments_url, method: 'post', :remote => true) do %>
-        <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :name) %>
-        <%= hidden_field_tag :project_id, @project.id %><%= submit_tag %>
-      <% end %>
-    </li>
-  </ul>
-</p>
-<p>
-  <b>Due date:</b>
-  <%= @project.due_date %>
-</p>
+      <p>
+        <b>Due date:</b>
+        <%= @project.due_date %>
+      </p>
 
-<p>
-  <b>Status:</b>
-  <%= form_tag(project_url(@project), method: 'put') do %>
-    <%= hidden_field_tag :project_id, @project.id %>
-    <%= select_tag :status, "<option>Incomplete</option><option>In Progress</option><option>Complete!</option>".html_safe %>
-    <%= submit_tag "Update" %>
+      <p>
+        <b>Description:</b>
+        <%= @project.description %>
+      </p>
 
-<% end %>
-</p>
+      <p>
+        <b>Team:</b>
+        <ul>
+          <% @project.users.each do |user| %>
+            <li><%= link_to user.name, user_url(user) %></li>
+          <% end %>
+          <li>
+            <%= form_tag(assignments_url, method: 'post', :remote => true) do %>
+              <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :name) %>
+              <%= hidden_field_tag :project_id, @project.id %><%= submit_tag "Add To Team" %>
+            <% end %>
+          </li>
+        </ul>
+      </p>
 
-<p>
-  <b>Date created:</b>
-  <%= @project.date_created %>
-</p>
+      <p>
+        <b>Date created:</b>
+        <%= @project.date_created %>
+      </p>
 
-<p>
-  <b>Date completed:</b>
-  <%= @project.date_completed %>
-</p>
+      <p>
+        <b>Date completed:</b>
+      </p>
+
+      <p>
+        <%= link_to 'Edit', edit_project_url(@project.id) %> | <%= link_to 'Destroy', project_url(@project.id), method: 'delete', data: { confirm: "Do you really want to delete this project?" } %>
+      </p>
+    </div>
 
 
+</div>
 
 

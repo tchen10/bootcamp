@@ -8,10 +8,10 @@
 </head>
 <body>
   <div class="container">
-    <div class="row">
     <ul class = "nav nav-pills">
-      <li><%= link_to "Users", users_url %></li>
-      <li><%= link_to "Projects", projects_url %></li>
+      <li><%= link_to "My Camp", user_url(session[:user_id]) %></li>
+      <li class="<%= active_if(:controller => "users") %>"><%= link_to "People", users_url %></li>
+      <li class="<%= active_if(:controller => "projects") %>"><%= link_to "Projects", projects_url %></li>
       <% if session[:user_id].present? %>
         <li><%= link_to "Sign Out", session_url, method: 'delete' %></li>
       <% else %>
@@ -21,7 +21,6 @@
     </ul
 
     <%= yield %>
-  </div>
   </div>
 </body>
 </html>

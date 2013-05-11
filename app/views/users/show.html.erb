@@ -28,7 +28,7 @@
           <p><%= link_to user.name, user_url(user) %><p>
           <% end %></td>
           <td><%= project.due_date %></td>
-          <td><%= project.status %></td>
+          <td><%= project.statuses.last.description %></td>
         </tr>
       <% end %>
       </tbody>

@@ -9,7 +9,7 @@
       <th>Team</th>
       <th>Due date</th>
       <th>Status</th>
-      <th>Date completed</th>
+      <th>Updated</th>
       <th></th>
       <th></th>
     </tr>
@@ -23,8 +23,8 @@
       <p><%= link_to user.name, user_url(user) %><p>
       <% end %></td>
       <td><%= project.due_date %></td>
-      <td><%= project.status %></td>
-      <td><%= project.date_completed %></td>
+      <td><%= project.statuses.last.description %></td>
+      <td><%= project.statuses.last.date %></td>
 
       <td><%= link_to 'Edit', edit_project_url(project) %></td>
       <td><%= link_to 'Destroy', project_url(project), method: 'delete', data: { confirm: "Do you really want to delete this project?" } %></td>

@@ -35,12 +35,10 @@ class ProjectsController < ApplicationController
     @project.title = params[:title]
     @project.description = params[:description]
     @project.date_created = params[:date_created].map{|k,v| v}.join("-").to_date
-    @project.date_completed = params[:date_completed].map{|k,v| v}.join("-").to_date
     @project.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
-    @project.status = params[:status]
 
     if @project.save
-            redirect_to projects_url
+            redirect_to project_url(params[:id])
           else
       render 'edit'
     end

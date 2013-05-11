@@ -1,4 +1,21 @@
 BootcampApp::Application.routes.draw do
+  # Routes for the Milestone resource:
+  # CREATE
+  get '/milestones/new', controller: 'milestones', action: 'new', as: 'new_milestone'
+  post '/milestones', controller: 'milestones', action: 'create'
+
+  # READ
+  get '/milestones', controller: 'milestones', action: 'index', as: 'milestones'
+  get '/milestones/:id', controller: 'milestones', action: 'show', as: 'milestone'
+
+  # UPDATE
+  get '/milestones/:id/edit', controller: 'milestones', action: 'edit', as: 'edit_milestone'
+  put '/milestones/:id', controller: 'milestones', action: 'update'
+
+  # DELETE
+  delete '/milestones/:id', controller: 'milestones', action: 'destroy'
+  #------------------------------
+
   # Routes for Pages
   root :to => 'pages#home', as: 'home'
 
@@ -41,7 +58,6 @@ BootcampApp::Application.routes.draw do
   delete '/projects/:id', controller: 'projects', action: 'destroy'
   #------------------------------
 
-  root :to => 'users#index'
   # Routes for the User resource:
   # CREATE
   get '/users/new', controller: 'users', action: 'new', as: 'new_user'
@@ -58,6 +74,26 @@ BootcampApp::Application.routes.draw do
   # DELETE
   delete '/users/:id', controller: 'users', action: 'destroy'
   #------------------------------
+
+  # ROUTES for the Status resource:
+
+  #CREATE
+  get '/statuses/new', controller: 'statuses', action: 'new', as: 'new_status'
+  post '/statuses', controller: 'statuses', action: 'create'
+
+  # READ
+  get '/statuses', controller: 'statuses', action: 'index', as: 'statuses'
+  get '/statuses/:id', controller: 'statuses', action: 'show', as: 'status'
+
+  # UPDATE
+  get '/statuses/:id/edit', controller: 'statuses', action: 'edit', as: 'edit_status'
+  put '/statuses/:id', controller: 'statuses', action: 'update'
+
+  # DELETE
+  delete '/statuses/:id', controller: 'statuses', action: 'destroy'
+
+  #--------------------------
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
