@@ -1,0 +1,38 @@
+<h1>Projects</h1>
+
+<p><%= link_to 'Add a New Project', new_project_url %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Date created</th>
+      <th>Date completed</th>
+      <th>Due date</th>
+      <th>Status</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @projects.each do |project| %>
+    <tr>
+      <td><%= project.title %></td>
+      <td><%= project.description %></td>
+      <td><%= project.date_created %></td>
+      <td><%= project.date_completed %></td>
+      <td><%= project.due_date %></td>
+      <td><%= project.status %></td>
+  
+      <td><%= link_to 'Show', project_url(project) %></td>
+      <td><%= link_to 'Edit', edit_project_url(project) %></td>
+      <td><%= link_to 'Destroy', project_url(project), method: 'delete', data: { confirm: "Do you really want to delete this project?" } %></td>
+
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+

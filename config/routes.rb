@@ -1,4 +1,61 @@
 BootcampApp::Application.routes.draw do
+  # Routes for SignIn/SignOut
+  get '/sessions/new' => 'sessions#new', as: 'new_session'
+  post '/sessions' => 'sessions#create', as: 'sessions'
+  delete '/sessions' => 'sessions#destroy', as: 'session'
+
+  # Routes for the Assignment resource:
+  # CREATE
+  get '/assignments/new', controller: 'assignments', action: 'new', as: 'new_assignment'
+  post '/assignments', controller: 'assignments', action: 'create'
+
+  # READ
+  get '/assignments', controller: 'assignments', action: 'index', as: 'assignments'
+  get '/assignments/:id', controller: 'assignments', action: 'show', as: 'assignment'
+
+  # UPDATE
+  get '/assignments/:id/edit', controller: 'assignments', action: 'edit', as: 'edit_assignment'
+  put '/assignments/:id', controller: 'assignments', action: 'update'
+
+  # DELETE
+  delete '/assignments/:id', controller: 'assignments', action: 'destroy'
+  #------------------------------
+
+  # Routes for the Project resource:
+  # CREATE
+  get '/projects/new', controller: 'projects', action: 'new', as: 'new_project'
+  post '/projects', controller: 'projects', action: 'create'
+
+  # READ
+  get '/projects', controller: 'projects', action: 'index', as: 'projects'
+  get '/projects/:id', controller: 'projects', action: 'show', as: 'project'
+
+  # UPDATE
+  get '/projects/:id/edit', controller: 'projects', action: 'edit', as: 'edit_project'
+  put '/projects/:id', controller: 'projects', action: 'update'
+
+  # DELETE
+  delete '/projects/:id', controller: 'projects', action: 'destroy'
+  #------------------------------
+
+  root :to => 'users#index'
+  # Routes for the User resource:
+  # CREATE
+  get '/users/new', controller: 'users', action: 'new', as: 'new_user'
+  post '/users', controller: 'users', action: 'create'
+
+  # READ
+  get '/users', controller: 'users', action: 'index', as: 'users'
+  get '/users/:id', controller: 'users', action: 'show', as: 'user'
+
+  # UPDATE
+  get '/users/:id/edit', controller: 'users', action: 'edit', as: 'edit_user'
+  put '/users/:id', controller: 'users', action: 'update'
+
+  # DELETE
+  delete '/users/:id', controller: 'users', action: 'destroy'
+  #------------------------------
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

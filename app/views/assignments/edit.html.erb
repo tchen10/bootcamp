@@ -1,0 +1,21 @@
+<h1>Editing Assignment #<%= @assignment.id %></h1>
+
+
+<%= form_tag(assignment_url(@assignment), method: 'put') do %>
+
+  <div>
+    <%= label_tag :user_id %><br />
+    <%= number_field_tag :user_id, @assignment.user_id %>
+  </div>
+
+  <div>
+    <%= label_tag :project_id %><br />
+    <%= number_field_tag :project_id, @assignment.project_id %>
+  </div>
+
+  
+  <div>
+    <%= submit_tag "Update Assignment" %>
+  </div>
+
+<% end %>

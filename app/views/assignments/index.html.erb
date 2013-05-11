@@ -1,0 +1,30 @@
+<h1>Assignments</h1>
+
+<p><%= link_to 'Add a New Assignment', new_assignment_url %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Project</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @assignments.each do |assignment| %>
+    <tr>
+      <td><%= assignment.user_id %></td>
+      <td><%= assignment.project_id %></td>
+  
+      <td><%= link_to 'Show', assignment_url(assignment) %></td>
+      <td><%= link_to 'Edit', edit_assignment_url(assignment) %></td>
+      <td><%= link_to 'Destroy', assignment_url(assignment), method: 'delete', data: { confirm: "Do you really want to delete this assignment?" } %></td>
+
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+

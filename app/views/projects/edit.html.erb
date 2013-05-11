@@ -1,0 +1,41 @@
+<h1>Editing Project #<%= @project.id %></h1>
+
+
+<%= form_tag(project_url(@project), method: 'put') do %>
+
+  <div>
+    <%= label_tag :title %><br />
+    <%= text_field_tag :title, @project.title %>
+  </div>
+
+  <div>
+    <%= label_tag :description %><br />
+    <%= text_field_tag :description, @project.description %>
+  </div>
+
+  <div>
+    <%= label_tag :date_created %><br />
+    <%= date_select_tag :date_created, @project.date_created %>
+  </div>
+
+  <div>
+    <%= label_tag :date_completed %><br />
+    <%= date_select_tag :date_completed, @project.date_completed %>
+  </div>
+
+  <div>
+    <%= label_tag :due_date %><br />
+    <%= date_select_tag :due_date, @project.due_date %>
+  </div>
+
+  <div>
+    <%= label_tag :status %><br />
+    <%= text_field_tag :status, @project.status %>
+  </div>
+
+  
+  <div>
+    <%= submit_tag "Update Project" %>
+  </div>
+
+<% end %>
