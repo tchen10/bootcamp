@@ -1,8 +1,8 @@
-<h1>Task #<%= @task.id %></h1>
+<h1>Task</h1>
 
 <p>
   <b>Milestone:</b>
-  <%= @task.milestone_id %>
+  <%= link_to @task.milestone.title, milestone_url(@task.milestone_id) %>
 </p>
 
 <p>
@@ -22,7 +22,7 @@
 
 <p>
   <b>User:</b>
-  <%= @task.user_id %>
+  <%= @task.user.name %>
 </p>
 
 <p>
