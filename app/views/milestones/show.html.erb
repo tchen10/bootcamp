@@ -1,28 +1,31 @@
-<h1>Milestone: <%= @milestone.title %></h1>
+<div class="row">
+  <div class="span12">
+    <h1>Milestone: <%= @milestone %></h1>
+  </div>
 
-<p>
-  <b>Project:</b>
-  <%= @milestone.project %>
-</p>
+  <div class="span3">
+    <p>
+      <b>Project:</b>
+      <%= link_to @milestone.project.title, project_url(@milestone.project_id) %>
+    </p>
 
-<p>
-  <b>Title:</b>
-  <%= @milestone.title %>
-</p>
+    <p>
+      <b>Description:</b>
+      <%= @milestone.description %>
+    </p>
 
-<p>
-  <b>Description:</b>
-  <%= @milestone.description %>
-</p>
+    <p>
+      <b>Date created:</b>
+      <%= @milestone.date_created %>
+    </p>
 
-<p>
-  <b>Date created:</b>
-  <%= @milestone.date_created %>
-</p>
+    <p>
+      <b>Due date:</b>
+      <%= @milestone.due_date %>
+    </p>
 
-<p>
-  <b>Due date:</b>
-  <%= @milestone.due_date %>
-</p>
-
-
+    <p>
+      <%= link_to "Edit", edit_milestone_url(@milestone.id) %> | <%= link_to 'Destroy', milestone_url(@milestone.id), method: 'delete', data: { confirm: "Do you really want to delete this milestone?" } %>
+    </p>
+  </div>
+</div>

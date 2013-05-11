@@ -17,11 +17,11 @@ class MilestonesController < ApplicationController
     @milestone.project_id = params[:project_id]
     @milestone.title = params[:title]
     @milestone.description = params[:description]
-    @milestone.date_created = params[:date_created]
-    @milestone.due_date = params[:due_date]
-    
+    @milestone.date_created = params[:date_created].map{|k,v| v}.join("-").to_date
+    @milestone.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
+
     if @milestone.save
-            redirect_to milestones_url
+            redirect_to milestone_url(:id)
           else
       render 'new'
     end
@@ -36,11 +36,11 @@ class MilestonesController < ApplicationController
     @milestone.project_id = params[:project_id]
     @milestone.title = params[:title]
     @milestone.description = params[:description]
-    @milestone.date_created = params[:date_created]
-    @milestone.due_date = params[:due_date]
-    
+    @milestone.date_created = params[:date_created].map{|k,v| v}.join("-").to_date
+    @milestone.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
+
     if @milestone.save
-            redirect_to milestones_url
+            redirect_to milestone_url(:id)
           else
       render 'edit'
     end

@@ -54,8 +54,47 @@
         <%= link_to 'Edit', edit_project_url(@project.id) %> | <%= link_to 'Destroy', project_url(@project.id), method: 'delete', data: { confirm: "Do you really want to delete this project?" } %>
       </p>
     </div>
+  <div class="span8">
+    <p><b>Milestones:</b></p>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Team</th>
+          <th>Due date</th>
+          <th>Status</th>
+          <th>Last Update</th>
+          <th></th>
+        </tr>
+      </thead>
 
+      <tbody>
+      <% @project.milestones.each do |milestone| %>
+        <tr>
+          <td><%= link_to milestone.title, milestone_url(milestone) %></td>
+          <td>Team</td>
+          <td><%= milestone.due_date %></td>
+          <td>Status</td>
+          <td>Last Update</td>
+          <td><%= link_to 'Edit', edit_milestone_url(milestone) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <p>QuickAdd Milestone</p>
+    <%= form_tag(milestones_url, method: 'post') do %>
+      <%= hidden_field_tag :project_id, @project.id %>
+        <%= label_tag :title %>
+        <%= text_field_tag :title %>
+      <div id="divdateselect" style="display: none;">
+        <%= date_select :date_created, default:Date.today %>
+      </div>
+        <%= label_tag :due_date %>
+        <%= date_select :due_date, :due_date, :default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
+        <%= submit_tag "Set Milestone" %>
+    <% end %>
 
+  </div>
 </div>
 
 
