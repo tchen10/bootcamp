@@ -1,4 +1,7 @@
 BootcampApp::Application.routes.draw do
+   # Routes for Pages
+  root :to => 'pages#home', as: 'home'
+
   # Routes for the Task resource:
   # CREATE
   get '/tasks/new', controller: 'tasks', action: 'new', as: 'new_task'
@@ -32,9 +35,6 @@ BootcampApp::Application.routes.draw do
   # DELETE
   delete '/milestones/:id', controller: 'milestones', action: 'destroy'
   #------------------------------
-
-  # Routes for Pages
-  root :to => 'pages#home', as: 'home'
 
   # Routes for SignIn/SignOut
   get '/sessions/new' => 'sessions#new', as: 'new_session'

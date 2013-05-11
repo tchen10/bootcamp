@@ -9,5 +9,4 @@ class AddStatusTable < ActiveRecord::Migration
 
     remove_column :projects, :date_completed
     remove_column :projects, :status
-  end
 end
