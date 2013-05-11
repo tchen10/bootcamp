@@ -12,7 +12,7 @@
       <li><%= link_to user.name, user_url(user) %></li>
     <% end %>
     <li>
-      <%= form_tag(assignments_url, method: 'post') do %>
+      <%= form_tag(assignments_url, method: 'post', :remote => true) do %>
         <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :name) %>
         <%= hidden_field_tag :project_id, @project.id %><%= submit_tag %>
       <% end %>
