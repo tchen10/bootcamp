@@ -34,9 +34,9 @@ class ProjectsController < ApplicationController
     @project = Project.find_by_id(params[:id])
     @project.title = params[:title]
     @project.description = params[:description]
-    @project.date_created = params[:date_created]
-    @project.date_completed = params[:date_completed]
-    @project.due_date = params[:due_date]
+    @project.date_created = params[:date_created].map{|k,v| v}.join("-").to_date
+    @project.date_completed = params[:date_completed].map{|k,v| v}.join("-").to_date
+    @project.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
     @project.status = params[:status]
 
     if @project.save
