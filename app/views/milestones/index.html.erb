@@ -6,8 +6,7 @@
   <thead>
     <tr>
       <th>Project</th>
-      <th>Title</th>
-      <th>Team</th>
+      <th>Milestone</th>
       <th>Due date</th>
       <th></th>
       <th></th>
@@ -19,8 +18,7 @@
   <% @milestones.each do |milestone| %>
     <tr>
       <td><%= link_to milestone.project.title, project_url(milestone.project_id) %></td>
-      <td><%= milestone.title %></td>
-      <td>Team</td>
+      <td><%= link_to milestone.title, milestone_url(milestone) %></td>
       <td><%= milestone.due_date %></td>
 
       <td><%= link_to 'Show', milestone_url(milestone) %></td>

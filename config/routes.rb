@@ -1,4 +1,21 @@
 BootcampApp::Application.routes.draw do
+  # Routes for the Task resource:
+  # CREATE
+  get '/tasks/new', controller: 'tasks', action: 'new', as: 'new_task'
+  post '/tasks', controller: 'tasks', action: 'create'
+
+  # READ
+  get '/tasks', controller: 'tasks', action: 'index', as: 'tasks'
+  get '/tasks/:id', controller: 'tasks', action: 'show', as: 'task'
+
+  # UPDATE
+  get '/tasks/:id/edit', controller: 'tasks', action: 'edit', as: 'edit_task'
+  put '/tasks/:id', controller: 'tasks', action: 'update'
+
+  # DELETE
+  delete '/tasks/:id', controller: 'tasks', action: 'destroy'
+  #------------------------------
+
   # Routes for the Milestone resource:
   # CREATE
   get '/milestones/new', controller: 'milestones', action: 'new', as: 'new_milestone'

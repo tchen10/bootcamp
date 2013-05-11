@@ -1,22 +1,17 @@
-<h1>New Milestone</h1>
+<h1>New Task</h1>
 
 
-<%= form_tag(milestones_url, method: 'post') do %>
+<%= form_tag(tasks_url, method: 'post') do %>
 
 
   <div>
-    <%= label_tag :project_id %>
-    <%= select_tag :project_id, options_from_collection_for_select(Project.all, :id, :title) %>
-  </div>
-
-  <div>
-    <%= label_tag :title %>
-    <%= text_field_tag :title %>
+    <%= label_tag :milestone_id %>
+    <%= select_tag :milestone_id, options_from_collection_for_select(Milestone.all, :id, :title) %>
   </div>
 
     <div>
     <%= label_tag :description %>
-    <%= text_area_tag :description %>
+    <%= text_field_tag :description %>
   </div>
 
   <div>
@@ -29,7 +24,18 @@
     <%= date_select :due_date, :due_date, :default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
   </div>
 
+    <div>
+    <%= label_tag :user_id %>
+    <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :name) %>
+  </div>
+
   <div>
-    <%= submit_tag "Set Milestone" %>
+    <%= label_tag :status %>
+    <%= text_field_tag :status %>
+  </div>
+
+
+  <div>
+    <%= submit_tag "Create Task" %>
   </div>
 <% end %>

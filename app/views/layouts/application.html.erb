@@ -13,6 +13,7 @@
       <li class="<%= active_if(:controller => "users") %>"><%= link_to "People", users_url %></li>
       <li class="<%= active_if(:controller => "projects") %>"><%= link_to "Projects", projects_url %></li>
       <li class="<%= active_if(:controller => "milestones") %>"><%= link_to "Milestones", milestones_url %></li>
+      <li class="<%= active_if(:controller => "tasks") %>"><%= link_to "Tasks", tasks_url %></li>
       <% if session[:user_id].present? %>
         <li><%= link_to "Sign Out", session_url, method: 'delete' %></li>
       <% else %>
