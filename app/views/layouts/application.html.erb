@@ -9,7 +9,6 @@
 <body>
   <div class="container">
     <ul class = "nav nav-pills">
-      <li><%= link_to "My Camp", user_url(session[:user_id]) %></li>
       <li class="<%= active_if(:controller => "users") %>"><%= link_to "People", users_url %></li>
       <li class="<%= active_if(:controller => "projects") %>"><%= link_to "Projects", projects_url %></li>
       <li class="<%= active_if(:controller => "milestones") %>"><%= link_to "Milestones", milestones_url %></li>
