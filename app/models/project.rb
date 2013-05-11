@@ -5,4 +5,8 @@ class Project < ActiveRecord::Base
   has_many :milestones
 
   validates :title, :date_created, :due_date, :presence => true
+
+  def recent_status
+    return self.statuses.last
+  end
 end
