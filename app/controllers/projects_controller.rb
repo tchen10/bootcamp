@@ -16,11 +16,9 @@ class ProjectsController < ApplicationController
     @project = Project.new
     @project.title = params[:title]
     @project.description = params[:description]
-    @project.date_created = params[:date_created]
-    @project.date_completed = params[:date_completed]
-    @project.due_date = params[:due_date]
-    @project.status = params[:status]
-    
+    @project.date_created = params[:date_created].map{|k,v| v}.join("-").to_date
+    @project.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
+
     if @project.save
             redirect_to projects_url
           else
@@ -40,7 +38,7 @@ class ProjectsController < ApplicationController
     @project.date_completed = params[:date_completed]
     @project.due_date = params[:due_date]
     @project.status = params[:status]
-    
+
     if @project.save
             redirect_to projects_url
           else

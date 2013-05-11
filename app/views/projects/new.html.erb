@@ -16,12 +16,12 @@
 
   <div>
     <%= label_tag :date_created %>
-    <%= text_field_tag :date_created, nil, :id => "datepicker" %>
+    <%= date_select :date_created, :due_date, :default => Date.today, :order => [:day, :month, :year] %>
   </div>
 
   <div>
     <%= label_tag :due_date %>
-    <%= text_field_tag :due_date, nil, :id => "datepicker" %>
+    <%= date_select :due_date, :due_date, :default => Date.today+1, :order => [:day, :month, :year] %>
   </div>
 
 
