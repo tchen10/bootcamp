@@ -1,4 +1,7 @@
 BootcampApp::Application.routes.draw do
+  # Routes for Pages
+  root :to => 'pages#home', as: 'home'
+
   # Routes for SignIn/SignOut
   get '/sessions/new' => 'sessions#new', as: 'new_session'
   post '/sessions' => 'sessions#create', as: 'sessions'
