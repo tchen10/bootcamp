@@ -22,8 +22,8 @@ class TasksController < ApplicationController
     @task.status = params[:status]
 
     if @task.save
-            redirect_to milestone_url(params[:milestone_id])
-          else
+      redirect_to :back
+        else
       render 'new'
     end
   end
@@ -51,6 +51,6 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find_by_id(params[:id])
     @task.destroy
-        redirect_to tasks_url
+        redirect_to :back
       end
 end

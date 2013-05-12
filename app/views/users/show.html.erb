@@ -1,15 +1,57 @@
 <div class = "row">
-  <div class = "span3">
+  <div class = "span4">
     <h1><%= @user.name %></h1>
 
     <p>
       <b>Email:</b>
       <%= @user.email %>
     </p>
+
+    <p>
+      <b>Days Until Next Task:</b>
+      <%= @user.next_task %>
+    </p>
+
+    <p>
+      <b>Days Until Next Milestone:</b>
+    </p>
+
+    <p>
+      <b>Days Until Next Project:</b>
+    </p>
+
   </div>
 
   <div class = "span8">
-    <p>Projects:</p>
+    <p><b>My Tasks:</b></p>
+    <table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Due Date</th>
+      <th>Milestone</th>
+      <th>Project</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @user.tasks.order('due_date').all.each do |task| %>
+    <tr>
+      <td><%= link_to task.description, task_url(task.id) %></td>
+      <td><%= task.due_date %></td>
+      <td><%= link_to task.milestone.title, milestone_url(task.milestone.id) %></td>
+      <td><%= link_to task.milestone.project.title, project_url(task.milestone.project.id) %></td>
+      <td><%= task.status %></td>
+
+      <td><%= link_to 'Edit', edit_task_url(task) %></td>
+
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+    <p><b>My Projects:</b></p>
     <table class = "table table-hover">
       <thead>
         <tr>
@@ -17,18 +59,25 @@
           <th>Team</th>
           <th>Due date</th>
           <th>Status</th>
+          <th>Last Update</th>
         </tr>
       </thead>
 
       <tbody>
-      <% @user.projects.each do |project| %>
+      <% @user.projects.order('due_date').all.each do |project| %>
         <tr>
           <td><%= link_to project.title, project_url(project) %></td>
           <td><% project.users.each do |user| %>
           <p><%= link_to user.name, user_url(user) %><p>
           <% end %></td>
           <td><%= project.due_date %></td>
-          <td><%= project.statuses.last %></td>
+          <% if project.recent_status.present? %>
+            <td><%= project.recent_status.description %></td>
+            <td><%= project.recent_status.date %></td>
+          <% else %>
+            <td></td>
+            <td></td>
+          <% end %>
         </tr>
       <% end %>
       </tbody>

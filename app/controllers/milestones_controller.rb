@@ -21,7 +21,7 @@ class MilestonesController < ApplicationController
     @milestone.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
 
     if @milestone.save
-            redirect_to milestone_url(:id)
+            redirect_to :back
           else
       render 'new'
     end
@@ -40,7 +40,7 @@ class MilestonesController < ApplicationController
     @milestone.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
 
     if @milestone.save
-            redirect_to milestone_url(:id)
+            redirect_to :back
           else
       render 'edit'
     end

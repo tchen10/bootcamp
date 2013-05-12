@@ -23,8 +23,13 @@
       <p><%= link_to user.name, user_url(user) %><p>
       <% end %></td>
       <td><%= project.due_date %></td>
-      <td><%= project.recent_status %></td>
-      <td><%= project.recent_status %></td>
+      <% if project.recent_status.present? %>
+        <td><%= project.recent_status.description %></td>
+        <td><%= project.recent_status.date %></td>
+      <% else %>
+        <td></td>
+        <td></td>
+      <% end %>
 
       <td><%= link_to 'Edit', edit_project_url(project) %></td>
       <td><%= link_to 'Destroy', project_url(project), method: 'delete', data: { confirm: "Do you really want to delete this project?" } %></td>

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="span12">
-    <h1>Milestone: <%= @milestone.title %></h1>
+    <h1><%= @milestone.project.title %>: <%= @milestone.title %></h1>
   </div>
 
   <div class="span4">
@@ -55,7 +55,7 @@
         <tr>
           <th>Description</th>
           <th>Due date</th>
-          <th>User</th>
+          <th>Team</th>
           <th>Status</th>
           <th></th>
           <th></th>
@@ -72,7 +72,7 @@
           <td><%= task.status %></td>
 
           <td><%= link_to 'Edit', edit_task_url(task) %></td>
-          <td><%= link_to 'Destroy', task_url(task), method: 'delete', data: { confirm: "Do you really want to delete this task?" } %></td>
+          <td><%= link_to 'Delete', task_url(task), method: 'delete', data: { confirm: "Do you really want to delete this task?" } %></td>
         </tr>
       <% end %>
       </tbody>
@@ -81,31 +81,30 @@
 
     <%= form_tag(tasks_url, method: 'post') do %>
     <%= hidden_field_tag :milestone_id, @milestone.id %>
-
-    <%= label_tag :description %>
-    <%= text_field_tag :description %>
-
+    <div class="span4">
+    <%= text_field_tag :description, nil, :placeholder => "Description" %>
+    </div>
     <div id="divdateselect" style="display: none;">
       <%= date_select :date_created, default:Date.today %>
     </div>
 
-    <div>
-      <%= label_tag :due_date %>
-      <%= date_select :due_date, :due_date, :default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
+    <div class="span4">
+      <%= label_tag :due_date, "Due Date:" %>
+      <%= date_select :due_date, :due_date, {:default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2}, {:class => "span1"} %>
     </div>
 
-    <div>
-    <%= label_tag :user_id %>
+    <div class="span4">
+    <%= label_tag :user_id, "Assigned To:" %>
     <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :name) %>
     </div>
 
-  <div>
+  <div class="span4">
     <%= label_tag :status %>
     <%= text_field_tag :status %>
   </div>
 
 
-  <div>
+  <div class="span4">
     <%= submit_tag "Create Task" %>
   </div>
 <% end %>

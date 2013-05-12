@@ -6,7 +6,9 @@
     <div class="span4">
       <p>
         <b>Status:</b>
-        <%= @project.recent_status.description %> <p>(updated: <%= @project.recent_status.date %>)</p>
+        <% if @project.recent_status.present? %>
+          <%= @project.recent_status.description %> <p>(updated: <%= @project.recent_status.date %>)</p>
+        <% end %>
         <%= form_tag(statuses_url, method: 'post') do %>
           <%= hidden_field_tag :project_id, @project.id %>
           <div id="divdateselect" style="display: none;">
@@ -30,12 +32,14 @@
         <b>Team:</b>
         <ul>
           <% @project.users.each do |user| %>
-            <li><%= link_to user.name, user_url(user) %></li>
+            <li><%= link_to user.name, user_url(user) %>
+              <%= link_to 'Delete'.html_safe, assignment_url(Assignment.find_by_user_id_and_project_id(user.id, @project.id)), method: 'delete', data: { confirm: "Delete Team Member?" }, :class => "btn btn-mini" %>
+            </li>
           <% end %>
         </ul>
         <%= form_tag(assignments_url, method: 'post', :remote => true) do %>
           <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :name) %>
-          <%= hidden_field_tag :project_id, @project.id %><%= submit_tag "Add To Team" %>
+          <%= hidden_field_tag :project_id, @project.id %><%= submit_tag "Add To Team", :class => "btn btn-mini" %>
         <% end %>
 
       </p>
@@ -75,16 +79,21 @@
       </tbody>
     </table>
     <p>QuickAdd Milestone</p>
-    <%= form_tag(milestones_url, method: 'post') do %>
+    <%= form_tag(milestones_url, method: 'post', :class => "form-inline") do %>
       <%= hidden_field_tag :project_id, @project.id %>
-        <%= label_tag :title %>
-        <%= text_field_tag :title %>
+      <div class="span4">
+        <%= text_field_tag :title, nil, :placeholder => "Title" %>
+      </div>
       <div id="divdateselect" style="display: none;">
         <%= date_select :date_created, default:Date.today %>
       </div>
-        <%= label_tag :due_date %>
-        <%= date_select :due_date, :due_date, :default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
+      <div class="span4">
+        <%= label_tag :due_date, "Due Date:" %>
+        <%= date_select :due_date, :due_date, {:default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2}, {:class => "span1"} %>
+      </div>
+      <div class="span4">
         <%= submit_tag "Set Milestone" %>
+      </div>
     <% end %>
 
   </div>

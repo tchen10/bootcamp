@@ -21,7 +21,7 @@ class UsersController < ApplicationController
 
     if @user.save
       session[:user_id] = @user.id
-      redirect_to users_url
+      redirect_to user_url(@user.id)
     else
       render 'new'
     end
@@ -39,8 +39,8 @@ class UsersController < ApplicationController
     @user.name = params[:name]
 
     if @user.save
-            redirect_to users_url
-          else
+      redirect_to user_url(@user.id)
+    else
       render 'edit'
     end
   end

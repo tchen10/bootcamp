@@ -30,4 +30,6 @@
   <%= @task.status %>
 </p>
 
+<p><%= link_to 'Edit', edit_task_url(@task.id) %> | <%= link_to 'Delete', task_url(@task.id), method: 'delete', data: { confirm: "Do you really want to delete this task?" } %></p>
+
 

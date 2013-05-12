@@ -18,8 +18,8 @@ class AssignmentsController < ApplicationController
     @assignment.project_id = params[:project_id]
 
     if @assignment.save
-            redirect_to project_url(params[:project_id])
-          else
+      redirect_to :back
+    else
       render 'new'
     end
   end
@@ -34,8 +34,8 @@ class AssignmentsController < ApplicationController
     @assignment.project_id = params[:project_id]
 
     if @assignment.save
-            redirect_to assignments_url
-          else
+      redirect_to assignments_url
+    else
       render 'edit'
     end
   end
@@ -43,6 +43,6 @@ class AssignmentsController < ApplicationController
   def destroy
     @assignment = Assignment.find_by_id(params[:id])
     @assignment.destroy
-        redirect_to assignments_url
-      end
+        redirect_to :back
+    end
 end

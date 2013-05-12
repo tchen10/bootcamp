@@ -6,4 +6,10 @@ class User < ActiveRecord::Base
 
   validates :email, uniqueness: true
   validates :email, :name, :password, :presence => true
+
+  def next_task
+    days = self.tasks.order('due_date').all.first.due_date - Date.today
+    return days.to_i
+  end
+
 end
