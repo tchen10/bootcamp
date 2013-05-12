@@ -1,28 +1,31 @@
-<h1>What Are People Workin' On?</h1>
+<h1>Whatcha Workin' On?</h1>
 
-<p><%= link_to 'Add a New User', new_user_url %></p>
+<% User.order('name').all.each do |user| %>
+  <% if user.tasks.present? %>
+    <h3><b><%= link_to user.name, user_url(user.id) %></b></h3>
+    <table class = "table table-hover">
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>Due Date</th>
+          <th>Milestone</th>
+          <th>Project</th>
+          <th>Status</th>
+        </tr>
+      </thead>
 
-<table class = "table table-hover">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Projects</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-  <% @users.each do |user| %>
-    <tr>
-      <td><%= link_to user.name, user_url(user) %></td>
-      <td><% user.projects.each do |project| %>
-        <p><%= link_to project.title, project_url(project.id)  %><p>
-          <% end %></td>
-      <td><%= link_to 'Edit', edit_user_url(user) %></td>
-    </tr>
+      <tbody>
+          <% user.tasks.order('due_date').all.each do |task| %>
+          <tr>
+            <td><%= task.description %></td>
+            <td><%= task.due_date %></td>
+            <td><%= link_to task.milestone.title, milestone_url(task.milestone.id) %></td>
+            <td><%= link_to task.milestone.project.title, project_url(task.milestone.project.id) %></td>
+            <td><%= task.status %>
+          <% end %>
+          </tr>
+      </tbody>
+    </table>
   <% end %>
-  </tbody>
-</table>
-
+<% end %>
+<p><%= link_to 'Add a New User', new_user_url %></p>
