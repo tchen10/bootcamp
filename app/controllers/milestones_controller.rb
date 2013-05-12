@@ -49,6 +49,6 @@ class MilestonesController < ApplicationController
   def destroy
     @milestone = Milestone.find_by_id(params[:id])
     @milestone.destroy
-        redirect_to milestones_url
+        redirect_to :back
       end
 end

@@ -1,6 +1,6 @@
-<div class="row">
+
   <div class="span12">
-    <h1>Project: <%= @project.title %></h1>
+    <h1><%= @project.title %></h1>
   </div>
 
     <div class="span4">
@@ -63,6 +63,7 @@
           <th>Status</th>
           <th>Last Update</th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
 
@@ -74,6 +75,7 @@
           <td>Status</td>
           <td>Last Update</td>
           <td><%= link_to 'Edit', edit_milestone_url(milestone) %></td>
+          <td><%= link_to 'Delete', milestone_url(milestone.id), method: 'delete', data: { confirm: "Do you really want to delete this milestone?" } %>
         </tr>
       <% end %>
       </tbody>
@@ -97,6 +99,5 @@
     <% end %>
 
   </div>
-</div>
 
 
