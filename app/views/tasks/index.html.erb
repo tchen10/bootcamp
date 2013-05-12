@@ -2,14 +2,16 @@
 
 <p><%= link_to 'Add a New Task', new_task_url %></p>
 
+<p><b>Still To Go:</b></p>
 <table class="table table-hover">
   <thead>
     <tr>
       <th>Milestone</th>
       <th>Description</th>
-      <th>Due date</th>
+      <th>Due Date</th>
       <th>User</th>
       <th>Status</th>
+      <th>Last Update</th>
       <th>Updates (Done? Check the Box!)</th>
       <th></th>
       <th></th>
@@ -24,12 +26,14 @@
       <td><%= task.due_date %></td>
       <td><%= link_to task.user.name, user_url(task.user.id) %></td>
       <td><%= task.status %></td>
+      <td><%= task.date_completed %>
         <%= form_tag(task_url(task.id), method: 'put', :class => "form-inline") do %>
           <%= hidden_field_tag :milestone_id, task.milestone.id %>
           <%= hidden_field_tag :description, task.description %>
           <div id="divdateselect" style="display: none;">
             <%= date_select :date_created, :date_created, :default => task.date_created, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
             <%= date_select :due_date, :due_date, :default => task.due_date, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
+             <%= date_select :date_completed, :date_completed, :default => Date.today, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
           </div>
         <%= hidden_field_tag :user_id, task.user_id %>
       <td><%= text_field_tag :status, nil, :placeholder => "Status?", :class => "input-small" %>
@@ -46,3 +50,32 @@
   </tbody>
 </table>
 
+<p><b>Completed!</b></p>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Milestone</th>
+      <th>Description</th>
+      <th>Due Date</th>
+      <th>Date Completed</th>
+      <th>User</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% Task.complete.order('due_date').all.each do |task| %>
+    <tr>
+      <td><%= link_to task.milestone.title, milestone_url(task.milestone.id) %></td>
+      <td><%= link_to task.description, task_url(task.id) %></td>
+      <td><%= task.due_date %></td>
+      <td><%= task.date_completed %></td>
+      <td><%= link_to task.user.name, user_url(task.user.id) %></td>
+      <td><%= task.complete.capitalize %></td>
+      <td><%= link_to 'Delete', task_url(task), method: 'delete', data: { confirm: "Do you really want to delete this task?" } %></td>
+
+    </tr>
+  <% end %>
+  </tbody>
+</table>

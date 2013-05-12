@@ -9,4 +9,14 @@ class Project < ActiveRecord::Base
   def recent_status
     return self.statuses.last
   end
+
+  def tasks
+    t = []
+    self.milestones.each do |milestone|
+      milestone.tasks.each do |task|
+        t << task
+      end
+    end
+    return t
+  end
 end

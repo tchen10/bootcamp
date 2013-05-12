@@ -1,3 +1,5 @@
+<title>Projects</title>
+
 <h1>Projects</h1>
 
 <p><%= link_to 'Add a New Project', new_project_url %></p>
@@ -10,6 +12,8 @@
       <th>Due date</th>
       <th>Status</th>
       <th>Updated</th>
+      <th>Tasks Completed</th>
+      <th>Still To Go</th>
       <th></th>
       <th></th>
     </tr>
@@ -27,6 +31,7 @@
         <td><%= project.recent_status.description %></td>
         <td><%= project.recent_status.date %></td>
       <% else %>
+        <td></td>
         <td></td>
         <td></td>
       <% end %>

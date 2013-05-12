@@ -1,3 +1,4 @@
+<title>Dashboard</title>
   <div class="span12">
     <h1><%= @user.name %></h1>
   </div>
@@ -83,6 +84,34 @@
       <% end %>
       </tbody>
     </table>
+
+  <p><b>Completed Tasks:</b></p>
+    <table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Due Date</th>
+      <th>Milestone</th>
+      <th>Project</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @user.tasks.complete.order('due_date').all.each do |task| %>
+    <tr>
+      <td><%= link_to task.description, task_url(task.id) %></td>
+      <td><%= task.due_date %></td>
+      <td><%= link_to task.milestone.title, milestone_url(task.milestone.id) %></td>
+      <td><%= link_to task.milestone.project.title, project_url(task.milestone.project.id) %></td>
+      <td><%= task.complete.capitalize %></td>
+
+      <td><%= link_to 'Delete', task_url(task), method: 'delete', data: { confirm: "Do you really want to delete this task?" } %></td>
+
+    </tr>
+  <% end %>
+  </tbody>
   </div>
 
 

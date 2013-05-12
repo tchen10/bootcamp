@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130512214007) do
+ActiveRecord::Schema.define(:version => 20130512223957) do
 
   create_table "assignments", :force => true do |t|
     t.integer "user_id"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(:version => 20130512214007) do
     t.date    "date_created"
     t.date    "due_date"
     t.string  "complete"
+    t.date    "date_completed"
   end
 
   create_table "users", :force => true do |t|

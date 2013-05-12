@@ -18,6 +18,7 @@ class TasksController < ApplicationController
     @task.description = params[:description]
     @task.date_created = params[:date_created].map{|k,v| v}.join("-").to_date
     @task.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
+    @task.date_completed = params[:date_completed].map{|k,v| v}.join("-").to_date
     @task.user_id = params[:user_id]
     @task.status = params[:status]
     @task.complete = params[:complete]
@@ -39,6 +40,7 @@ class TasksController < ApplicationController
     @task.description = params[:description]
     @task.date_created = params[:date_created].map{|k,v| v}.join("-").to_date
     @task.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
+    @task.date_completed = params[:date_completed].map{|k,v| v}.join("-").to_date
     @task.user_id = params[:user_id]
     @task.status = params[:status]
     @task.complete = params[:complete]

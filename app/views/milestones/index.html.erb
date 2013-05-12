@@ -7,7 +7,9 @@
     <tr>
       <th>Project</th>
       <th>Milestone</th>
-      <th>Due date</th>
+      <th>Due Date</th>
+      <th>Tasks Completed</th>
+      <th>Still To Go</th>
       <th></th>
     </tr>
   </thead>
@@ -18,6 +20,8 @@
       <td><%= link_to milestone.project.title, project_url(milestone.project_id) %></td>
       <td><%= link_to milestone.title, milestone_url(milestone) %></td>
       <td><%= milestone.due_date %></td>
+      <td><%= milestone.tasks.complete.count %> of <%= milestone.tasks.count %></td>
+      <td><%= milestone.tasks.incomplete.count %></td>
       <td><%= link_to 'Edit', edit_milestone_url(milestone) %></td>
     </tr>
   <% end %>
