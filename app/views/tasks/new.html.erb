@@ -24,6 +24,11 @@
     <%= date_select :due_date, :due_date, :default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
   </div>
 
+  <div id="divdateselect" style="display: none;">
+    <%= label_tag :date_completed %>
+    <%= date_select :date_completed, :date_completed, :default => Date.today, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
+  </div>
+
     <div>
     <%= label_tag :user_id %>
     <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :name) %>

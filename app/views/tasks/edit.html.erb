@@ -24,8 +24,8 @@
   </div>
 
   <div>
-    <%= label_tag :due_date %>
-    <%= date_select :due_date, :due_date, :default => Date.today, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
+    <%= label_tag :date_completed %>
+    <%= date_select :date_completed, :date_completed, :default => Date.today, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
   </div>
 
   <div>
