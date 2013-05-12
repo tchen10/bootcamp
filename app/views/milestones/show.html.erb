@@ -55,22 +55,35 @@
         <tr>
           <th>Description</th>
           <th>Due date</th>
-          <th>Team</th>
+          <th>Assigned</th>
           <th>Status</th>
-          <th></th>
+          <th>Updates</th>
           <th></th>
           <th></th>
         </tr>
       </thead>
 
       <tbody>
-      <% @milestone.tasks.order('due_date').all.each do |task| %>
+      <% @milestone.tasks.incomplete.order('due_date').all.each do |task| %>
         <tr>
           <td><%= link_to task.description, task_url(task.id) %></td>
           <td><%= task.due_date %></td>
           <td><%= link_to task.user.name, user_url(task.user.id) %></td>
           <td><%= task.status %></td>
-
+              <%= form_tag(task_url(task.id), method: 'put', :class => "form-inline") do %>
+              <%= hidden_field_tag :milestone_id, task.milestone.id %>
+              <%= hidden_field_tag :description, task.description %>
+              <div id="divdateselect" style="display: none;">
+                <%= date_select :date_created, :date_created, :default => task.date_created, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
+                <%= date_select :due_date, :due_date, :default => task.due_date, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
+              </div>
+              <%= hidden_field_tag :user_id, task.user_id %>
+              <td><%= text_field_tag :status, nil, :placeholder => "Status?", :class => "input-mini" %>
+              <%= hidden_field_tag :complete, "incomplete" %>
+              <%= check_box_tag :complete, "complete", false %>
+              <%= submit_tag "Update", :class => "btn btn-mini" %>
+              <% end %>
+              </td>
           <td><%= link_to 'Edit', edit_task_url(task) %></td>
           <td><%= link_to 'Delete', task_url(task), method: 'delete', data: { confirm: "Do you really want to delete this task?" } %></td>
         </tr>
@@ -86,8 +99,8 @@
     </div>
     <div id="divdateselect" style="display: none;">
       <%= date_select :date_created, default:Date.today %>
-    </div>
 
+    </div>
     <div class="span4">
       <%= label_tag :due_date, "Due Date:" %>
       <%= date_select :due_date, :due_date, {:default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2}, {:class => "span1"} %>
@@ -98,11 +111,7 @@
     <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :name) %>
     </div>
 
-  <div class="span4">
-    <%= label_tag :status %>
-    <%= text_field_tag :status %>
-  </div>
-
+  <%= hidden_field_tag :complete, "incomplete" %>
 
   <div class="span4">
     <%= submit_tag "Create Task" %>

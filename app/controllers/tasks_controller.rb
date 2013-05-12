@@ -20,6 +20,7 @@ class TasksController < ApplicationController
     @task.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
     @task.user_id = params[:user_id]
     @task.status = params[:status]
+    @task.complete = params[:complete]
 
     if @task.save
       redirect_to :back
@@ -40,9 +41,10 @@ class TasksController < ApplicationController
     @task.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
     @task.user_id = params[:user_id]
     @task.status = params[:status]
+    @task.complete = params[:complete]
 
     if @task.save
-            redirect_to milestone_url(params[:milestone_id])
+      redirect_to :back
           else
       render 'edit'
     end

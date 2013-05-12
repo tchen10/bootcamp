@@ -60,8 +60,8 @@
         <tr>
           <th>Title</th>
           <th>Due date</th>
-          <th>Status</th>
-          <th>Last Update</th>
+          <th>Tasks Completed</th>
+          <th>Still To Go</th>
           <th></th>
           <th></th>
         </tr>
@@ -72,8 +72,8 @@
         <tr>
           <td><%= link_to milestone.title, milestone_url(milestone) %></td>
           <td><%= milestone.due_date %></td>
-          <td>Status</td>
-          <td>Last Update</td>
+          <td><%= milestone.tasks.complete.count %> of <%= milestone.tasks.all.count %></td>
+          <td><%= milestone.tasks.incomplete.count %></td>
           <td><%= link_to 'Edit', edit_milestone_url(milestone) %></td>
           <td><%= link_to 'Delete', milestone_url(milestone.id), method: 'delete', data: { confirm: "Do you really want to delete this milestone?" } %>
         </tr>

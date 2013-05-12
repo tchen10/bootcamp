@@ -15,7 +15,7 @@
       </thead>
 
       <tbody>
-          <% user.tasks.order('due_date').all.each do |task| %>
+          <% user.tasks.incomplete.order('due_date').all.each do |task| %>
           <tr>
             <td><%= task.description %></td>
             <td><%= task.due_date %></td>

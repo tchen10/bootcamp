@@ -34,8 +34,10 @@
     <%= text_field_tag :status %>
   </div>
 
+  <%= hidden_field_tag :complete, "incomplete" %>
+
 
   <div>
-    <%= submit_tag "Create Task" %>
+    <%= submit_tag "Create Task", :notice => "Task created!" %>
   </div>
 <% end %>

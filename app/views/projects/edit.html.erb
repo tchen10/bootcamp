@@ -4,22 +4,22 @@
 <%= form_tag(project_url(@project), method: 'put') do %>
 
   <div>
-    <%= label_tag :title %><br />
+    <%= label_tag :title %>
     <%= text_field_tag :title, @project.title %>
   </div>
 
   <div>
-    <%= label_tag :description %><br />
+    <%= label_tag :description %>
     <%= text_area_tag :description, @project.description %>
   </div>
 
   <div>
-    <%= label_tag :date_created %><br />
+    <%= label_tag :date_created %>
      <%= date_select :date_created, :date_created, :default => @project.date_created, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
   </div>
 
   <div>
-    <%= label_tag :due_date %><br />
+    <%= label_tag :due_date %>
     <%= date_select :due_date, :due_date, :default => @project.due_date, :order => [:day, :month, :year ], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
   </div>
 
