@@ -64,7 +64,7 @@
       </thead>
 
       <tbody>
-      <% @milestone.tasks.each do |task| %>
+      <% @milestone.tasks.order('due_date').all.each do |task| %>
         <tr>
           <td><%= link_to task.description, task_url(task.id) %></td>
           <td><%= task.due_date %></td>

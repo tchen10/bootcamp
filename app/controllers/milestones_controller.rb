@@ -1,7 +1,7 @@
 class MilestonesController < ApplicationController
 
   def index
-    @milestones = Milestone.all
+    @milestones = Milestone.order('due_date').all
   end
 
   def show

@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
 
   def index
-    @projects = Project.all
+    @projects = Project.order('due_date').all
   end
 
   def show

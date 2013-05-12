@@ -9,8 +9,6 @@
       <th>Milestone</th>
       <th>Due date</th>
       <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -20,11 +18,7 @@
       <td><%= link_to milestone.project.title, project_url(milestone.project_id) %></td>
       <td><%= link_to milestone.title, milestone_url(milestone) %></td>
       <td><%= milestone.due_date %></td>
-
-      <td><%= link_to 'Show', milestone_url(milestone) %></td>
       <td><%= link_to 'Edit', edit_milestone_url(milestone) %></td>
-      <td><%= link_to 'Destroy', milestone_url(milestone), method: 'delete', data: { confirm: "Do you really want to delete this milestone?" } %></td>
-
     </tr>
   <% end %>
   </tbody>

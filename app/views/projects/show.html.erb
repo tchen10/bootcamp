@@ -6,7 +6,7 @@
     <div class="span3">
       <p>
         <b>Status:</b>
-        <%= @project.recent_status.description %> <p>(updated: <%= @project.recent_status.date %>)</p>
+        <%= @project.recent_status %> <p>(updated: <%= @project.recent_status %>)</p>
         <%= form_tag(statuses_url, method: 'post') do %>
           <%= hidden_field_tag :project_id, @project.id %>
           <div id="divdateselect" style="display: none;">
@@ -63,7 +63,7 @@
       </thead>
 
       <tbody>
-      <% @project.milestones.each do |milestone| %>
+      <% @project.milestones.order('due_date').all.each do |milestone| %>
         <tr>
           <td><%= link_to milestone.title, milestone_url(milestone) %></td>
           <td><%= milestone.due_date %></td>
