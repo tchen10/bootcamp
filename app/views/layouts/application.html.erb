@@ -7,21 +7,33 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class="container">
-    <ul class = "nav nav-pills">
-      <li class="<%= active_if(:controller => "users") %>"><%= link_to "People", users_url %></li>
-      <li class="<%= active_if(:controller => "projects") %>"><%= link_to "Projects", projects_url %></li>
-      <li class="<%= active_if(:controller => "milestones") %>"><%= link_to "Milestones", milestones_url %></li>
-      <li class="<%= active_if(:controller => "tasks") %>"><%= link_to "Tasks", tasks_url %></li>
-      <% if session[:user_id].present? %>
-        <li><%= link_to "Sign Out", session_url, method: 'delete' %></li>
-      <% else %>
-        <li><%= link_to "Sign Up", new_user_url %></li>
-        <li><%= link_to "Sign In", new_session_url %></li>
-      <% end %>
-    </ul
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <%= link_to "ZenGarden", users_url, :class => :brand %>
+          <ul class = "nav">
+            <% if session[:user_id].present? %>
+              <li class="<%= active_if(:controller => "users", :action => "show") %>"><%= link_to "Dashboard", user_url(session[:user_id]) %></li>
+            <% end %>
+            <li class="<%= active_if(:controller => "users", :action => "index") %>"><%= link_to "People", users_url %></li>
+            <li class="<%= active_if(:controller => "projects") %>"><%= link_to "Projects", projects_url %></li>
+            <li class="<%= active_if(:controller => "milestones") %>"><%= link_to "Milestones", milestones_url %></li>
+            <li class="<%= active_if(:controller => "tasks") %>"><%= link_to "Tasks", tasks_url %></li>
+            <% if session[:user_id].present? %>
+              <li class="navbar-text pull-right">
+              <li><%= link_to "Sign Out", session_url, method: 'delete' %></li>
+            <% else %>
+              <li><%= link_to "Sign Up", new_user_url %></li>
+              <li><%= link_to "Sign In", new_session_url %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
 
-    <%= yield %>
+    <div class="container-fluid">
+      <%= yield %>
+    </div>
   </div>
 </body>
 </html>

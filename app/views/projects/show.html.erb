@@ -3,10 +3,10 @@
     <h1>Project: <%= @project.title %></h1>
   </div>
 
-    <div class="span3">
+    <div class="span4">
       <p>
         <b>Status:</b>
-        <%= @project.recent_status %> <p>(updated: <%= @project.recent_status %>)</p>
+        <%= @project.recent_status.description %> <p>(updated: <%= @project.recent_status.date %>)</p>
         <%= form_tag(statuses_url, method: 'post') do %>
           <%= hidden_field_tag :project_id, @project.id %>
           <div id="divdateselect" style="display: none;">
