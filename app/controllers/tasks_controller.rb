@@ -46,7 +46,7 @@ class TasksController < ApplicationController
     @task.complete = params[:complete]
 
     if @task.save
-      redirect_to :back
+      redirect_to tasks_url
           else
       render 'edit'
     end
