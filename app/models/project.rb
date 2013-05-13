@@ -19,4 +19,15 @@ class Project < ActiveRecord::Base
     end
     return t
   end
+
+  # def tasks_incomplete
+  #   t = []
+  #   self.tasks.each.do |task|
+  #     if task[:complete] == "incomplete"
+  #       t << task
+  #     end
+  #   end
+  #   return t
+  # end
+
 end

@@ -24,7 +24,7 @@ class TasksController < ApplicationController
     @task.complete = params[:complete]
 
     if @task.save
-      redirect_to :back
+      redirect_to :back, :notice => "New task created!"
         else
       render 'new'
     end
@@ -46,7 +46,7 @@ class TasksController < ApplicationController
     @task.complete = params[:complete]
 
     if @task.save
-      redirect_to tasks_url
+      redirect_to :back, :notice => "Task updated!"
           else
       render 'edit'
     end
