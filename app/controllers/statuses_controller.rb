@@ -15,7 +15,7 @@ class StatusesController < ApplicationController
   def create
     @status = Status.new
     @status.project_id = params[:project_id]
-    @status.date = params[:date]
+    @status.date = params[:date].map{|k,v| v}.join("-").to_date
     @status.description = params[:description]
 
     if @status.save

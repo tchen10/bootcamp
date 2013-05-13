@@ -3,7 +3,7 @@
 <h1>Whatcha Workin' On?</h1>
 
 <% User.order('name').all.each do |user| %>
-  <% if user.tasks.present? %>
+  <% if user.tasks.incomplete.present? %>
     <h3><b><%= link_to user.name, user_url(user.id) %></b></h3>
     <table class = "table table-hover">
       <thead>
