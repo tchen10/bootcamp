@@ -67,7 +67,11 @@
 
     <tbody>
     <% @project.milestones.order('due_date').all.each do |milestone| %>
-      <tr>
+      <% if milestone.due_date >= Date.today %>
+        <tr class="error">
+      <% else %>
+        <tr>
+      <% end %>
         <td><%= link_to milestone.title, milestone_url(milestone) %></td>
         <td><%= milestone.due_date %></td>
         <td><%= milestone.tasks.complete.count %> of <%= milestone.tasks.all.count %></td>

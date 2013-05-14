@@ -16,7 +16,11 @@
 
   <tbody>
   <% @milestones.each do |milestone| %>
-    <tr>
+    <% if milestone.due_date >= Date.today %>
+      <tr class="error">
+    <% else %>
+      <tr>
+    <% end %>
       <td><%= link_to milestone.project.title, project_url(milestone.project_id) %></td>
       <td><%= link_to milestone.title, milestone_url(milestone) %></td>
       <td><%= milestone.due_date %></td>

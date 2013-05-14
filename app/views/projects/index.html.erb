@@ -19,7 +19,11 @@
 
   <tbody>
   <% @projects.each do |project| %>
-    <tr>
+    <% if project.due_date >= Date.today %>
+      <tr class="error">
+    <% else %>
+      <tr>
+    <% end %>
       <td><%= link_to project.title, project_url(project) %></td>
       <td><% project.users.each do |user| %>
       <p><%= link_to user.name, user_url(user) %><p>
