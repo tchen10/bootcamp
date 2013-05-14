@@ -20,7 +20,7 @@ class ProjectsController < ApplicationController
     @project.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
 
     if @project.save
-      redirect_to project_url(params[:id])
+      redirect_to project_url(@project.id)
     else
       render 'new'
     end

@@ -1,8 +1,6 @@
 <h1>Sign In</h1>
 
-<div><%= notice %></div> </br>
-
-<%= form_tag sessions_url do %>
+<%= form_tag sessions_url, :class => "form-horizontal" do %>
 
   <div>
     <%= label_tag :email, "Email:" %>

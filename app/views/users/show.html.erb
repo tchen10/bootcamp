@@ -10,21 +10,11 @@
     </p>
 
     <p>
-      <b>Days Until Next Task:</b>
+      <%= link_to 'Edit', edit_user_url(@user.id) %> | <%= link_to 'Delete User', user_url(@user.id), method: 'delete', data: { confirm: "Do you really want to delete this user?" } %>
     </p>
-
-    <p>
-      <b>Days Until Next Milestone:</b>
-    </p>
-
-    <p>
-      <b>Days Until Next Project:</b>
-    </p>
-
   </div>
 
   <div class = "span8">
-    <h4><b><%= notice %></b></h4>
     <p><b>My Tasks:</b></p>
     <table class="table table-hover">
   <thead>

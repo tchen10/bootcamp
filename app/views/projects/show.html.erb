@@ -1,103 +1,103 @@
+<div class="span12">
+  <h1><%= @project.title %></h1>
+</div>
 
-  <div class="span12">
-    <h1><%= @project.title %></h1>
-  </div>
-
-    <div class="span4">
-      <p>
-        <b>Status:</b>
-        <% if @project.recent_status.present? %>
-          <%= @project.recent_status.description %> <p>(updated: <%= @project.recent_status.date %>)</p>
-        <% end %>
-        <%= form_tag(statuses_url, method: 'post') do %>
-          <%= hidden_field_tag :project_id, @project.id %>
-          <div id="divdateselect" style="display: none;">
-          <%= date_select :date, default:Date.today %>
-          </div>
-          <%= text_field_tag :description, nil, :placeholder => "What's the status?" %>
-        <% end %>
-      </p>
-
-      <p>
-        <b>Due date:</b>
-        <%= @project.due_date %>
-      </p>
-
-      <p>
-        <b>Description:</b>
-        <%= @project.description %>
-      </p>
-
-      <p>
-        <b>Team:</b>
-        <ul>
-          <% @project.users.each do |user| %>
-            <li><%= link_to user.name, user_url(user) %>
-              <%= link_to 'Delete'.html_safe, assignment_url(Assignment.find_by_user_id_and_project_id(user.id, @project.id)), method: 'delete', data: { confirm: "Delete Team Member?" }, :class => "btn btn-mini" %>
-            </li>
-          <% end %>
-        </ul>
-        <%= form_tag(assignments_url, method: 'post', :remote => true) do %>
-          <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :name) %>
-          <%= hidden_field_tag :project_id, @project.id %><%= submit_tag "Add To Team", :class => "btn btn-mini" %>
-        <% end %>
-
-      </p>
-
-      <p>
-        <b>Date created:</b>
-        <%= @project.date_created %>
-      </p>
-
-      <p>
-        <%= link_to 'Edit', edit_project_url(@project.id) %> | <%= link_to 'Destroy', project_url(@project.id), method: 'delete', data: { confirm: "Do you really want to delete this project?" } %>
-      </p>
-    </div>
-  <div class="span8">
-    <p><b>Milestones:</b></p>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Due date</th>
-          <th>Tasks Completed</th>
-          <th>Still To Go</th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-
-      <tbody>
-      <% @project.milestones.order('due_date').all.each do |milestone| %>
-        <tr>
-          <td><%= link_to milestone.title, milestone_url(milestone) %></td>
-          <td><%= milestone.due_date %></td>
-          <td><%= milestone.tasks.complete.count %> of <%= milestone.tasks.all.count %></td>
-          <td><%= milestone.tasks.incomplete.count %></td>
-          <td><%= link_to 'Edit', edit_milestone_url(milestone) %></td>
-          <td><%= link_to 'Delete', milestone_url(milestone.id), method: 'delete', data: { confirm: "Do you really want to delete this milestone?" } %>
-        </tr>
+  <div class="span4">
+    <p>
+      <b>Status:</b>
+        <%= @project.recent_status.try(:description) %> <p>(updated: <%= @project.recent_status.try(:date) %>)</p>
+      <%= form_tag(statuses_url, method: 'post') do %>
+        <%= hidden_field_tag :project_id, @project.id %>
+        <div id="divdateselect" style="display: none;">
+        <%= date_select :date, default:Date.today %>
+        </div>
+        <%= text_field_tag :description, nil, :placeholder => "What's the status?" %>
       <% end %>
-      </tbody>
-    </table>
-    <p>QuickAdd Milestone</p>
+    </p>
+
+    <p>
+      <b>Due date:</b>
+      <%= @project.due_date %>
+    </p>
+
+    <p>
+      <b>Description:</b>
+      <%= @project.description %>
+    </p>
+
+    <p>
+      <b>Team:</b>
+      <ul>
+        <% @project.users.each do |user| %>
+          <li><%= link_to user.name, user_url(user) %>
+            <%= link_to 'Delete'.html_safe, assignment_url(Assignment.find_by_user_id_and_project_id(user.id, @project.id)), method: 'delete', data: { confirm: "Delete Team Member?" }, :class => "btn btn-mini", :id => "delete_team" %>
+          </li>
+        <% end %>
+      </ul>
+      <p>
+      <%= form_tag(assignments_url, method: 'post', :remote => true, :id => "team_form") do %>
+        <%= select_tag :user_id, options_from_collection_for_select(User.order('name').all, :id, :name), :include_blank => true %>
+        <%= hidden_field_tag :project_id, @project.id %><%= submit_tag "Add To Team", :class => "btn btn-mini" %>
+      <% end %>
+      </p>
+    </p>
+
+    <p>
+      <b>Date created:</b>
+      <%= @project.date_created %>
+    </p>
+
+    <p>
+      <%= link_to 'Edit', edit_project_url(@project.id) %> | <%= link_to 'Delete Project', project_url(@project.id), method: 'delete', data: { confirm: "Do you really want to delete this project?" } %>
+    </p>
+  </div>
+<div class="span8">
+  <p><b>Milestones:</b></p>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Due date</th>
+        <th>Tasks Completed</th>
+        <th>Still To Go</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+    <% @project.milestones.order('due_date').all.each do |milestone| %>
+      <tr>
+        <td><%= link_to milestone.title, milestone_url(milestone) %></td>
+        <td><%= milestone.due_date %></td>
+        <td><%= milestone.tasks.complete.count %> of <%= milestone.tasks.all.count %></td>
+        <td><%= milestone.tasks.incomplete.count %></td>
+        <td><%= link_to 'Edit', edit_milestone_url(milestone) %></td>
+        <td><%= link_to 'Delete', milestone_url(milestone.id), method: 'delete', data: { confirm: "Do you really want to delete this milestone?" } %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <p><button class="btn btn-mini", data-toggle="collapse", data-target="#quick_form">QuickAdd Milestone</button></p>
+  <div id="quick_form", class="collapse">
     <%= form_tag(milestones_url, method: 'post', :class => "form-inline") do %>
       <%= hidden_field_tag :project_id, @project.id %>
       <div class="span4">
-        <%= text_field_tag :title, nil, :placeholder => "Title" %>
+      <p><%= text_field_tag :title, nil, :placeholder => "Title" %></p>
       </div>
       <div id="divdateselect" style="display: none;">
-        <%= date_select :date_created, default:Date.today %>
+      <%= date_select :date_created, default:Date.today %>
       </div>
       <div class="span4">
-        <%= label_tag :due_date, "Due Date:" %>
-        <%= date_select :due_date, :due_date, {:default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2}, {:class => "span1"} %>
+      <%= label_tag :due_date, "Due Date:" %>
+      <p><%= date_select :due_date, :due_date, {:default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2}, {:class => "span1"} %></p>
       </div>
       <div class="span4">
-        <%= submit_tag "Set Milestone" %>
+      <%= submit_tag "Set Milestone", :class => "btn btn-mini" %>
       </div>
     <% end %>
-
   </div>
+</div>
+
 
 

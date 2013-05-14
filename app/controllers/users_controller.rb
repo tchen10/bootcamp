@@ -1,5 +1,12 @@
 class UsersController < ApplicationController
+  before_filter :authorize_user, only: [:edit, :update, :destroy]
 
+  def authorize_user
+    @user = User.find_by_id(params[:id])
+    if @user.id != session[:user_id]
+      redirect_to :back, notice: "Nice Try"
+    end
+  end
   def index
     @users = User.all
   end

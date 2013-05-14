@@ -14,7 +14,6 @@
       <th>Updated</th>
       <th>Tasks</th>
       <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -36,7 +35,6 @@
       <td><%= project.tasks.count %></td>
 
       <td><%= link_to 'Edit', edit_project_url(project) %></td>
-      <td><%= link_to 'Destroy', project_url(project), method: 'delete', data: { confirm: "Do you really want to delete this project?" } %></td>
 
     </tr>
   <% end %>

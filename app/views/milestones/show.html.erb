@@ -49,7 +49,6 @@
     </p>
   </div>
   <div class="span8">
-    <h4><b><%= notice %></b></h4>
     <p><b>Tasks:</b></p>
     <table class="table table-hover">
       <thead>
@@ -77,9 +76,9 @@
               <%= hidden_field_tag :milestone_id, task.milestone.id %>
               <%= hidden_field_tag :description, task.description %>
               <div id="divdateselect" style="display: none;">
-                <%= date_select :date_created, :date_created, :default => task.date_created, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
-              <%= date_select :due_date, :due_date, :default => task.due_date, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
-               <%= date_select :date_completed, :date_completed, :default => Date.today, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
+                <%= date_select :date_created, :date_created, :default => task.date_created %>
+              <%= date_select :due_date, :due_date, :default => task.due_date %>
+               <%= date_select :date_completed, :date_completed, :default => Date.today %>
               </div>
               <%= hidden_field_tag :user_id, task.user_id %>
               <td><%= text_field_tag :status, nil, :placeholder => "Status?", :class => "input-mini" %>
@@ -94,8 +93,8 @@
       <% end %>
       </tbody>
     </table>
-    <p>QuickAdd Task</p>
-
+    <p><button class="btn btn-mini", data-toggle="collapse", data-target="#quick_form">QuickAdd Task</button></p>
+    <div id="quick_form", class="collapse">
     <%= form_tag(tasks_url, method: 'post') do %>
     <%= hidden_field_tag :milestone_id, @milestone.id %>
     <div class="span4">
@@ -109,19 +108,17 @@
       <%= label_tag :due_date, "Due Date:" %>
       <%= date_select :due_date, :due_date, {:default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2}, {:class => "span1"} %>
     </div>
-
     <div class="span4">
     <%= label_tag :user_id, "Assigned To:" %>
     <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :name) %>
     </div>
-
   <%= hidden_field_tag :complete, "incomplete" %>
 
   <div class="span4">
     <%= submit_tag "Create Task" %>
   </div>
-<% end %>
+  <% end %>
+</div>
 
 
   </div>
-
