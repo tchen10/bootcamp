@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  skip_before_filter :authorize
 
   def new
   end
@@ -8,7 +9,7 @@ class SessionsController < ApplicationController
 
     if u.present? && u.authenticate(params[:password])
       session[:user_id] = u.id
-      redirect_to users_url, notice: "You're Signed In!"
+      redirect_to user_url(u.id), notice: "You're Signed In!"
     else
       redirect_to new_session_url, notice: "Nice try."
     end
