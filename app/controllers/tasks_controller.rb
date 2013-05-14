@@ -26,7 +26,7 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to :back, :notice => "New task created!"
         else
-      render 'new'
+      render 'new', :notice => "Nice try."
     end
   end
 
@@ -48,13 +48,13 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to :back, :notice => "Task updated!"
           else
-      render 'edit'
+      render 'edit', :notice => "Nice try."
     end
   end
 
   def destroy
     @task = Task.find_by_id(params[:id])
     @task.destroy
-        redirect_to :back
+        redirect_to :back, :notice => "Task deleted!"
       end
 end

@@ -20,9 +20,9 @@ class ProjectsController < ApplicationController
     @project.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
 
     if @project.save
-      redirect_to project_url(@project.id)
+      redirect_to project_url(@project.id), :notice => "Project created!"
     else
-      render 'new'
+      render 'new', :notice => "Nice try."
     end
   end
 
@@ -38,9 +38,9 @@ class ProjectsController < ApplicationController
     @project.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
 
     if @project.save
-      redirect_to project_url(params[:id])
+      redirect_to project_url(params[:id]), :notice => "Project updated!"
     else
-      render 'edit'
+      render 'edit', :notice => "Nice try."
     end
   end
 

@@ -5,32 +5,32 @@
 <%= form_tag(task_url(@task), method: 'put') do %>
 
     <div>
-    <%= label_tag :milestone_id %>
-    <%= select_tag :milestone_id, options_from_collection_for_select(Milestone.all, :id, :title) %>
+    <%= label_tag :milestone_id, "Milestone: *" %>
+    <%= select_tag :milestone_id, options_from_collection_for_select(Milestone.order('title').all, :id, :title), :include_blank => true %>
   </div>
 
     <div>
-    <%= label_tag :description %>
+    <%= label_tag :description, "Description:" %>
     <%= text_field_tag :description, @task.description %>
   </div>
 
   <div>
-    <%= label_tag :date_created %>
+    <%= label_tag :date_created, "Date Created: *" %>
     <%= date_select :date_created, :date_created, :default => @task.date_created, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
   </div>
 
   <div>
-    <%= label_tag :due_date %>
+    <%= label_tag :due_date, "Due Date: *" %>
     <%= date_select :due_date, :due_date, :default => @task.due_date, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
   </div>
 
   <div>
-    <%= label_tag :date_completed %>
+    <%= label_tag :date_completed, "Date Completed: *" %>
     <%= date_select :date_completed, :date_completed, :default => Date.today, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
   </div>
 
   <div>
-    <%= label_tag :user_id %>
+    <%= label_tag :user_id, "Team Member: *" %>
     <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :name) %>
   </div>
 
@@ -40,7 +40,7 @@
   </div>
 
   <div>
-    <%= label_tag :complete %>
+    <%= label_tag :complete, "Complete? *" %>
     <%= select_tag :complete, "<option>incomplete</option><option>complete</option>".html_safe %>
   </div>
 

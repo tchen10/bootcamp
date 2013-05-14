@@ -2,6 +2,8 @@ class Task < ActiveRecord::Base
   belongs_to :milestone
   belongs_to :user
 
+  validates :milestone_id, :date_created, :due_date, :user, :complete, :date_completed, :presence => true
+
   def Task.complete
     return self.where("complete" => "complete")
   end

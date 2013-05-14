@@ -23,7 +23,7 @@ class MilestonesController < ApplicationController
     if @milestone.save
       redirect_to :back, :notice => "Milestone created!"
         else
-      render 'new'
+      render 'new', :notice => "Nice try."
     end
   end
 
@@ -40,15 +40,15 @@ class MilestonesController < ApplicationController
     @milestone.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
 
     if @milestone.save
-            redirect_to :back, :notice => "Milestone updated!"
-          else
-      render 'edit'
+      redirect_to :back, :notice => "Milestone updated!"
+    else
+      render 'edit', :notice => "Nice try."
     end
   end
 
   def destroy
     @milestone = Milestone.find_by_id(params[:id])
     @milestone.destroy
-        redirect_to :back
-      end
+        redirect_to :back, :notice => "Milestone deleted!"
+  end
 end

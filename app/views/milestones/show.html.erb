@@ -114,7 +114,7 @@
     </div>
     <div class="span4">
     <%= label_tag :user_id, "Assigned To:" %>
-    <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :name) %>
+    <%= select_tag :user_id, options_from_collection_for_select(User.order('name').all, :id, :name), :include_blank => true %>
     </div>
   <%= hidden_field_tag :complete, "incomplete" %>
 

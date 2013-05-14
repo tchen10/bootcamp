@@ -12,4 +12,11 @@ class User < ActiveRecord::Base
     return days.to_i
   end
 
+  def User.names_array
+    names = []
+    self.all.each do |user|
+      names << user.name
+    end
+    return names
+  end
 end
