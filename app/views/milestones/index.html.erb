@@ -16,7 +16,7 @@
 
   <tbody>
   <% @milestones.each do |milestone| %>
-    <% if milestone.due_date >= Date.today %>
+    <% if milestone.due_date <= Date.today %>
       <tr class="error">
     <% else %>
       <tr>

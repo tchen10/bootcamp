@@ -19,7 +19,7 @@
 
   <tbody>
   <% @projects.each do |project| %>
-    <% if project.due_date >= Date.today %>
+    <% if project.due_date <= Date.today %>
       <tr class="error">
     <% else %>
       <tr>
