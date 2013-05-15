@@ -20,13 +20,7 @@
             <li class="<%= active_if(:controller => "projects") %>"><%= link_to "Projects", projects_url %></li>
             <li class="<%= active_if(:controller => "milestones") %>"><%= link_to "Milestones", milestones_url %></li>
             <li class="<%= active_if(:controller => "tasks") %>"><%= link_to "Tasks", tasks_url %></li>
-            <% if session[:user_id].present? %>
-              <li class="navbar-text pull-right">
-              <li><%= link_to "Sign Out", session_url, method: 'delete' %></li>
-            <% else %>
-              <li><%= link_to "Sign Up", new_user_url %></li>
-              <li><%= link_to "Sign In", new_session_url %></li>
-            <% end %>
+            <li><%= link_to "Sign Out", session_url, method: 'delete' %></li>
           </ul>
         </div>
       </div>
@@ -35,7 +29,7 @@
     <% if notice.present? %>
     <div class="alert">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
-      <strong><%= notice %><strong>
+      <strong><%= notice %></strong>
     </div>
     <% end %>
     <div class="container-fluid">

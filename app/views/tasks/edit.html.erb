@@ -1,12 +1,19 @@
 <h1>Edit Task</h1>
 
-<%= notice %>
+<% if @task.errors.any? %>
+  <% @task.errors.full_messages.each do |msg| %>
+    <div class="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <%= msg %>
+    </div>
+  <% end %>
+<% end %>
 
 <%= form_tag(task_url(@task), method: 'put') do %>
 
     <div>
     <%= label_tag :milestone_id, "Milestone: *" %>
-    <%= select_tag :milestone_id, options_from_collection_for_select(Milestone.order('title').all, :id, :title), :include_blank => true %>
+    <%= select_tag :milestone_id, options_from_collection_for_select(Milestone.order('title').all, :id, :title, @task.milestone_id) %>
   </div>
 
     <div>
@@ -31,7 +38,7 @@
 
   <div>
     <%= label_tag :user_id, "Team Member: *" %>
-    <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :name) %>
+    <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :name, @task.user_id) %>
   </div>
 
   <div>

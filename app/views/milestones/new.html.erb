@@ -1,22 +1,30 @@
 <h1>New Milestone</h1>
 
+<% if @milestone.errors.any? %>
+  <% @milestone.errors.full_messages.each do |msg| %>
+    <div class="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <%= msg %>
+    </div>
+  <% end %>
+<% end %>
 
 <%= form_tag(milestones_url, method: 'post') do %>
 
 
   <div>
     <%= label_tag :project_id %>
-    <%= select_tag :project_id, options_from_collection_for_select(Project.all, :id, :title) %>
+    <%= select_tag :project_id, options_from_collection_for_select(Project.all, :id, :title, @milestone.project_id) %>
   </div>
 
   <div>
     <%= label_tag :title %>
-    <%= text_field_tag :title %>
+    <%= text_field_tag :title, @milestone.title %>
   </div>
 
     <div>
     <%= label_tag :description %>
-    <%= text_area_tag :description %>
+    <%= text_area_tag :description, @milestone.description %>
   </div>
 
   <div>

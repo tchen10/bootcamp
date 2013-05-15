@@ -1,5 +1,13 @@
 <h1>Project: <%= @project.title %></h1>
 
+<% if @project.errors.any? %>
+  <% @project.errors.full_messages.each do |msg| %>
+    <div class="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <%= msg %>
+    </div>
+  <% end %>
+<% end %>
 
 <%= form_tag(project_url(@project), method: 'put') do %>
 

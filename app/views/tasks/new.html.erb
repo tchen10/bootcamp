@@ -1,18 +1,25 @@
 <h1>New Task</h1>
 
-
+<% if @task.errors.any? %>
+  <% @task.errors.full_messages.each do |msg| %>
+    <div class="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <%= msg %>
+    </div>
+  <% end %>
+<% end %>
 
 <%= form_tag(tasks_url, method: 'post') do %>
 
 
   <div>
     <%= label_tag :milestone_id, "Milestone: *" %>
-    <%= select_tag :milestone_id, options_from_collection_for_select(Milestone.order('title').all, :id, :title), :include_blank => true %>
+    <%= select_tag :milestone_id, options_from_collection_for_select(Milestone.order('title').all, :id, :title, @task.milestone_id), :include_blank => true %>
   </div>
 
     <div>
     <%= label_tag :description, "Description:" %>
-    <%= text_field_tag :description %>
+    <%= text_field_tag :description, @task.description %>
   </div>
 
   <div>
@@ -32,12 +39,12 @@
 
     <div>
     <%= label_tag :user_id, "Team Member: *" %>
-    <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :name) %>
+    <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :name, @task.user_id) %>
   </div>
 
   <div>
     <%= label_tag :status %>
-    <%= text_field_tag :status %>
+    <%= text_field_tag :status, @task.status %>
   </div>
 
   <%= hidden_field_tag :complete, "incomplete" %>
