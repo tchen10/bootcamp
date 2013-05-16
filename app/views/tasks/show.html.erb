@@ -1,6 +1,11 @@
 <h1>Task</h1>
 
 <p>
+  <b>Project:</b>
+  <%= link_to @task.project.title, project_url(@task.project_id) %>
+</p>
+
+<p>
   <b>Milestone:</b>
   <%= link_to @task.milestone.title, milestone_url(@task.milestone_id) %>
 </p>

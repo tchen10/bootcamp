@@ -1,6 +1,7 @@
 class Task < ActiveRecord::Base
   belongs_to :milestone
   belongs_to :user
+  belongs_to :project
 
   validates :milestone_id, :date_created, :due_date, :user, :complete, :date_completed, :presence => true
 

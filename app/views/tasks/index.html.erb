@@ -1,11 +1,12 @@
 <h1>Tasks</h1>
 
-<p><%= link_to 'Add a New Task', new_task_url %></p>
+<p><%= link_to 'Add a New Task', new_task_url, :class => "btn btn-success" %></p>
 
 <p><b>Still To Go:</b></p>
 <table class="table table-hover">
   <thead>
     <tr>
+      <th>Project</th>
       <th>Milestone</th>
       <th>Description</th>
       <th>Due Date</th>
@@ -25,6 +26,7 @@
     <% else %>
       <tr>
     <% end %>
+      <td><%= task.project.try(:title) %></td>
       <td><%= link_to task.milestone.title, milestone_url(task.milestone.id) %></td>
       <td><%= link_to task.description, task_url(task.id) %></td>
       <td><%= task.due_date %></td>
@@ -46,8 +48,8 @@
       <%= submit_tag "Update", :class => "btn btn-mini" %>
       <% end %>
       </td>
-      <td><%= link_to 'Edit', edit_task_url(task) %></td>
-      <td><%= link_to 'Delete', task_url(task), method: 'delete', data: { confirm: "Do you really want to delete this task?" } %></td>
+      <td><%= link_to 'Edit', edit_task_url(task), :class => "btn btn-mini" %></td>
+      <td><%= link_to 'Delete', task_url(task), :class => "btn btn-mini", method: 'delete', data: { confirm: "Do you really want to delete this task?" } %></td>
 
     </tr>
   <% end %>

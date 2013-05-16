@@ -11,6 +11,10 @@
 
 <%= form_tag(tasks_url, method: 'post') do %>
 
+  <div>
+    <%= label_tag :project_id, "Project: *" %>
+    <%= select_tag :project_id, options_from_collection_for_select(Project.order('title').all, :id, :title, @task.project_id) %>
+  </div>
 
   <div>
     <%= label_tag :milestone_id, "Milestone: *" %>

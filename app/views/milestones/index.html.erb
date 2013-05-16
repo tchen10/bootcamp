@@ -1,6 +1,6 @@
 <h1>Milestones</h1>
 
-<p><%= link_to 'Add a New Milestone', new_milestone_url %></p>
+<p><%= link_to 'Add a New Milestone', new_milestone_url, :class => "btn btn-success" %></p>
 
 <table class="table table-hover">
   <thead>
@@ -26,7 +26,7 @@
       <td><%= milestone.due_date %></td>
       <td><%= milestone.tasks.complete.count %> of <%= milestone.tasks.count %></td>
       <td><%= milestone.tasks.incomplete.count %></td>
-      <td><%= link_to 'Edit', edit_milestone_url(milestone) %></td>
+      <td><%= link_to 'Edit', edit_milestone_url(milestone), :class => "btn btn-mini" %></td>
     </tr>
   <% end %>
   </tbody>

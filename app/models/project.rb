@@ -3,31 +3,12 @@ class Project < ActiveRecord::Base
   has_many :users, :through => :assignments
   has_many :statuses
   has_many :milestones
+  has_many :tasks
 
   validates :title, :date_created, :due_date, :presence => true
 
   def recent_status
     return self.statuses.last
   end
-
-  def tasks
-    t = []
-    self.milestones.each do |milestone|
-      milestone.tasks.each do |task|
-        t << task
-      end
-    end
-    return t
-  end
-
-  # def tasks_incomplete
-  #   t = []
-  #   self.tasks.each.do |task|
-  #     if task[:complete] == "incomplete"
-  #       t << task
-  #     end
-  #   end
-  #   return t
-  # end
 
 end

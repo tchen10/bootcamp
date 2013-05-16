@@ -2,7 +2,7 @@
 
 <h1>Projects</h1>
 
-<p><%= link_to 'Add a New Project', new_project_url %></p>
+<p><%= link_to 'Add a New Project', new_project_url, :class => "btn btn-success" %></p>
 
 <table class = "table table-hover">
   <thead>
@@ -38,7 +38,7 @@
       <% end %>
       <td><%= project.tasks.count %></td>
 
-      <td><%= link_to 'Edit', edit_project_url(project) %></td>
+      <td><%= link_to 'Edit', edit_project_url(project), :class => "btn btn-mini" %></td>
 
     </tr>
   <% end %>

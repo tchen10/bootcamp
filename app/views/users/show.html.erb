@@ -10,7 +10,22 @@
     </p>
 
     <p>
-      <%= link_to 'Edit', edit_user_url(@user.id) %> | <%= link_to 'Delete User', user_url(@user.id), method: 'delete', data: { confirm: "Do you really want to delete this user?" } %>
+      <b>Home:</b>
+      <%= @user.home %>
+    </p>
+
+    <p>
+      <b>Birthday:</b>
+      <%= @user.birthday %>
+    </p>
+
+    <p>
+      <b>Bio:</b>
+      <%= @user.bio %>
+    </p>
+
+    <p>
+      <%= link_to 'Edit', edit_user_url(@user.id), :class => "btn btn-mini" %> <%= link_to 'Delete User', user_url(@user.id), :class => "btn btn-mini", method: 'delete', data: { confirm: "Do you really want to delete this user?" } %>
     </p>
   </div>
 
@@ -55,7 +70,7 @@
               <%= submit_tag "Update", :class => "btn btn-mini" %>
               <% end %>
               </td>
-      <td><%= link_to 'Edit', edit_task_url(task) %></td>
+      <td><%= link_to 'Edit', edit_task_url(task), :class => "btn btn-mini" %></td>
 
     </tr>
   <% end %>

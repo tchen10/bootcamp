@@ -14,6 +14,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new
+    @task.project_id = params[:project_id]
     @task.milestone_id = params[:milestone_id]
     @task.description = params[:description]
     @task.date_created = params[:date_created].map{|k,v| v}.join("-").to_date
@@ -36,6 +37,7 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find_by_id(params[:id])
+    @task.project_id = params[:project_id]
     @task.milestone_id = params[:milestone_id]
     @task.description = params[:description]
     @task.date_created = params[:date_created].map{|k,v| v}.join("-").to_date
