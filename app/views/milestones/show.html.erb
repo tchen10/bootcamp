@@ -103,9 +103,10 @@
         <% end %>
         </tbody>
       </table>
-      <p><button class="btn btn-success", data-toggle="collapse", data-target="#quick_form">QuickAdd Task</button></p>
+      <p><button class="btn btn-success", data-toggle="collapse", data-target="#quick_form">+</button></p>
       <div id="quick_form", class="collapse">
         <%= form_tag(tasks_url, method: 'post') do %>
+        <%= hidden_field_tag :project_id, @milestone.project.id %>
         <%= hidden_field_tag :milestone_id, @milestone.id %>
         <div class="span5">
         <%= text_field_tag :description, nil, :placeholder => "Description" %>

@@ -1,6 +1,7 @@
-<title>People</title>
-
-<h1>Whatcha Workin' On?</h1>
+<div class="row-fluid">
+  <%= link_to '+', new_user_url, :class => "pull-right btn btn-success" %>
+  <h1>Whatcha Workin' On?</h1>
+</div>
 
 <% User.order('name').all.each do |user| %>
   <% if user.tasks.incomplete.present? %>
@@ -36,4 +37,3 @@
     </div>
   <% end %>
 <% end %>
-<p><%= link_to 'Add a New User', new_user_url, :class => "btn btn-success" %></p>

@@ -83,7 +83,7 @@
       <% end %>
       </tbody>
     </table>
-    <p><button class="btn btn-success", data-toggle="collapse", data-target="#quick_form">QuickAdd Milestone</button></p>
+    <p><button class="btn btn-success", data-toggle="collapse", data-target="#quick_form">+</button></p>
     <div id="quick_form", class="collapse">
       <%= form_tag(milestones_url, method: 'post', :class => "form-inline") do %>
         <%= hidden_field_tag :project_id, @project.id %>
@@ -150,7 +150,7 @@
       <% end %>
       </tbody>
     </table>
-    <p><button class="btn btn-success", data-toggle="collapse", data-target="#quick_taskform">QuickAdd Task</button></p>
+    <p><button class="btn btn-success", data-toggle="collapse", data-target="#quick_taskform">+</button></p>
       <div id="quick_taskform", class="collapse">
         <%= form_tag(tasks_url, method: 'post') do %>
         <%= hidden_field_tag :project_id, @project.id %>
