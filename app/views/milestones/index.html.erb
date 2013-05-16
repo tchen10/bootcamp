@@ -1,34 +1,34 @@
 <h1>Milestones</h1>
 
 <p><%= link_to 'Add a New Milestone', new_milestone_url, :class => "btn btn-success" %></p>
-
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Project</th>
-      <th>Milestone</th>
-      <th>Due Date</th>
-      <th>Tasks Completed</th>
-      <th>Still To Go</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-  <% @milestones.each do |milestone| %>
-    <% if milestone.due_date <= Date.today %>
-      <tr class="error">
-    <% else %>
+<div class="well">
+  <table class="table table-hover">
+    <thead>
       <tr>
-    <% end %>
-      <td><%= link_to milestone.project.title, project_url(milestone.project_id) %></td>
-      <td><%= link_to milestone.title, milestone_url(milestone) %></td>
-      <td><%= milestone.due_date %></td>
-      <td><%= milestone.tasks.complete.count %> of <%= milestone.tasks.count %></td>
-      <td><%= milestone.tasks.incomplete.count %></td>
-      <td><%= link_to 'Edit', edit_milestone_url(milestone), :class => "btn btn-mini" %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+        <th>Project</th>
+        <th>Milestone</th>
+        <th>Due Date</th>
+        <th>Tasks Completed</th>
+        <th>Still To Go</th>
+        <th></th>
+      </tr>
+    </thead>
 
+    <tbody>
+    <% @milestones.each do |milestone| %>
+      <% if milestone.due_date <= Date.today %>
+        <tr class="error">
+      <% else %>
+        <tr>
+      <% end %>
+        <td><%= link_to milestone.project.title, project_url(milestone.project_id) %></td>
+        <td><%= link_to milestone.title, milestone_url(milestone) %></td>
+        <td><%= milestone.due_date %></td>
+        <td><%= milestone.tasks.complete.count %> of <%= milestone.tasks.count %></td>
+        <td><%= milestone.tasks.incomplete.count %></td>
+        <td><%= link_to 'Edit', edit_milestone_url(milestone), :class => "btn btn-mini" %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

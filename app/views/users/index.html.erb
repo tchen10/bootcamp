@@ -5,33 +5,35 @@
 <% User.order('name').all.each do |user| %>
   <% if user.tasks.incomplete.present? %>
     <h3><b><%= link_to user.name, user_url(user.id) %></b></h3>
-    <table class = "table table-hover">
-      <thead>
-        <tr>
-          <th>Task</th>
-          <th>Due Date</th>
-          <th>Milestone</th>
-          <th>Project</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-
-      <tbody>
-          <% user.tasks.incomplete.order('due_date').all.each do |task| %>
-          <% if task.due_date <= Date.today %>
-            <tr class="error">
-          <% else %>
-            <tr>
-          <% end %>
-            <td><%= task.description %></td>
-            <td><%= task.due_date %></td>
-            <td><%= link_to task.milestone.title, milestone_url(task.milestone.id) %></td>
-            <td><%= link_to task.milestone.project.title, project_url(task.milestone.project.id) %></td>
-            <td><%= task.status %>
-          <% end %>
+    <div class="well">
+      <table class = "table table-hover">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Due Date</th>
+            <th>Milestone</th>
+            <th>Project</th>
+            <th>Status</th>
           </tr>
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+            <% user.tasks.incomplete.order('due_date').all.each do |task| %>
+            <% if task.due_date <= Date.today %>
+              <tr class="error">
+            <% else %>
+              <tr>
+            <% end %>
+              <td><%= task.description %></td>
+              <td><%= task.due_date %></td>
+              <td><%= link_to task.milestone.title, milestone_url(task.milestone.id) %></td>
+              <td><%= link_to task.milestone.project.title, project_url(task.milestone.project.id) %></td>
+              <td><%= task.status %>
+            <% end %>
+            </tr>
+        </tbody>
+      </table>
+    </div>
   <% end %>
 <% end %>
 <p><%= link_to 'Add a New User', new_user_url, :class => "btn btn-success" %></p>
