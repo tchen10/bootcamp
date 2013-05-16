@@ -52,7 +52,7 @@
     </p>
   </div>
 <div class="span8">
-  <p><b>Milestones:</b></p>
+  <h4><b>Milestones:</b></h4>
   <table class="table table-hover">
     <thead>
       <tr>
@@ -102,14 +102,13 @@
     <% end %>
   </div>
 
-  <p><b>Tasks:</b></p>
+  <h4><b>Tasks:</b></h4>
   <table class="table table-hover">
     <thead>
       <tr>
         <th>Description</th>
         <th>Due Date</th>
         <th>Milestone</th>
-        <th>Project</th>
         <th>Status</th>
         <th>Update</th>
       </tr>
@@ -124,9 +123,9 @@
       <td><%= link_to task.description, task_url(task.id) %></td>
       <td><%= task.due_date %></td>
       <td><%= link_to task.milestone.title, milestone_url(task.milestone.id) %></td>
-      <td><%= link_to task.milestone.project.title, project_url(task.milestone.project.id) %></td>
       <td><%= task.status %></td>
       <%= form_tag(task_url(task.id), method: 'put', :class => "form-inline") do %>
+      <%= hidden_field_tag :project_id, task.project_id %>
       <%= hidden_field_tag :milestone_id, task.milestone.id %>
       <%= hidden_field_tag :description, task.description %>
       <div id="divdateselect" style="display: none;">
@@ -172,7 +171,7 @@
       </div>
       <% end %>
     </div>
-  <p><b>Completed Tasks:</b></p>
+  <h4><b>Completed Tasks:</b></h4>
     <table class="table table-hover">
   <thead>
     <tr>
