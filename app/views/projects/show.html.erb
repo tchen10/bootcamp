@@ -87,17 +87,17 @@
     <div id="quick_form", class="collapse">
       <%= form_tag(milestones_url, method: 'post', :class => "form-inline") do %>
         <%= hidden_field_tag :project_id, @project.id %>
-        <div class="span4">
+        <div class="span5">
         <p><%= text_field_tag :title, nil, :placeholder => "Title" %></p>
         </div>
         <div id="divdateselect" style="display: none;">
         <%= date_select :date_created, default:Date.today %>
         </div>
-        <div class="span4">
+        <div class="span5">
         <%= label_tag :due_date, "Due Date:" %>
         <p><%= date_select :due_date, :due_date, {:default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2}, {:class => "span1"} %></p>
         </div>
-        <div class="span4">
+        <div class="span5">
         <%= submit_tag "Set Milestone", :class => "btn btn-mini" %>
         </div>
       <% end %>
@@ -110,6 +110,7 @@
       <thead>
         <tr>
           <th>Description</th>
+          <th>Assigned To</th>
           <th>Due Date</th>
           <th>Milestone</th>
           <th>Status</th>
@@ -124,6 +125,7 @@
         <tr>
       <% end %>
         <td><%= link_to task.description, task_url(task.id) %></td>
+        <td><%= link_to task.user.name, user_url(task.user_id) %></td>
         <td><%= task.due_date %></td>
         <td><%= link_to task.milestone.title, milestone_url(task.milestone.id) %></td>
         <td><%= task.status %></td>
@@ -152,24 +154,24 @@
       <div id="quick_taskform", class="collapse">
         <%= form_tag(tasks_url, method: 'post') do %>
         <%= hidden_field_tag :project_id, @project.id %>
-        <div class="span4">
+        <div class="span5">
          <%= select_tag :milestone_id, options_from_collection_for_select(@project.milestones.order('title').all, :id, :title) %><%= text_field_tag :description, nil, :placeholder => "Description" %>
         </div>
         <div id="divdateselect" style="display: none;">
           <%= date_select :date_created, default:Date.today %>
           <%= date_select :date_completed, default:Date.today %>
         </div>
-        <div class="span4">
+        <div class="span5">
           <%= label_tag :due_date, "Due Date:" %>
           <%= date_select :due_date, :due_date, {:default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2}, {:class => "span1"} %>
         </div>
-        <div class="span4">
+        <div class="span5">
         <%= label_tag :user_id, "Assigned To:" %>
         <%= select_tag :user_id, options_from_collection_for_select(User.order('name').all, :id, :name), :include_blank => true %>
         </div>
         <%= hidden_field_tag :complete, "incomplete" %>
 
-        <div class="span4">
+        <div class="span5">
         <%= submit_tag "Create Task", :class => "btn btn-mini" %>
         </div>
         <% end %>
@@ -182,6 +184,7 @@
     <thead>
       <tr>
         <th>Description</th>
+        <th>Assigned to</th>
         <th>Due Date</th>
         <th>Milestone</th>
         <th>Date Completed</th>
@@ -193,6 +196,7 @@
     <% @project.tasks.complete.order('due_date').all.each do |task| %>
       <tr>
         <td><%= link_to task.description, task_url(task.id) %></td>
+        <td><%= link_to task.user.name, user_url(task.user_id) %></td>
         <td><%= task.due_date %></td>
         <td><%= link_to task.milestone.title, milestone_url(task.milestone.id) %></td>
         <td><%= task.date_completed %></td>

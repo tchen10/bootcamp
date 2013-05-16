@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :tasks
 
   validates :email, uniqueness: true
-  validates :email, :name, :password, :presence => true
+  validates :email, :password, :name, :presence => true
 
   def next_task
     days = self.tasks.order('due_date').all.first.due_date - Date.today
