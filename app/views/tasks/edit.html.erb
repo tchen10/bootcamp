@@ -37,7 +37,7 @@
   </div>
 
   <div>
-    <%= label_tag :date_completed, "Date Completed: *" %>
+    <%= label_tag :date_completed, "Last Updated: *" %>
     <%= date_select :date_completed, :date_completed, :default => Date.today, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
   </div>
 

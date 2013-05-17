@@ -120,7 +120,7 @@
         <th>Due Date</th>
         <th>Milestone</th>
         <th>Project</th>
-        <th>Status</th>
+        <th>Date Completed</th>
         <th></th>
       </tr>
     </thead>
@@ -132,7 +132,7 @@
         <td><%= task.due_date %></td>
         <td><%= link_to task.milestone.title, milestone_url(task.milestone.id) %></td>
         <td><%= link_to task.milestone.project.title, project_url(task.milestone.project.id) %></td>
-        <td><%= task.complete.capitalize %></td>
+        <td><%= task.date_completed %></td>
 
         <td><%= link_to 'Delete', task_url(task), :class => "btn btn mini", method: 'delete', data: { confirm: "Do you really want to delete this task?" } %></td>
 

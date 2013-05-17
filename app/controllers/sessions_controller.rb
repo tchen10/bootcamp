@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    redirect_to home_url, notice: 'Signed out!'
+    redirect_to new_session_url, notice: 'Signed out!'
   end
 
 end

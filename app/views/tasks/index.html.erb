@@ -34,7 +34,7 @@
         <td><%= task.due_date %></td>
         <td><%= link_to task.user.name, user_url(task.user.id) %></td>
         <td><%= task.status %></td>
-        <td><%= task.date_completed %>
+        <td><%= task.date_completed %></td>
           <%= form_tag(task_url(task.id), method: 'put', :class => "form-inline") do %>
             <%= hidden_field_tag :project_id, task.project_id %>
             <%= hidden_field_tag :milestone_id, task.milestone.id %>
