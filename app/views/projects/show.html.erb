@@ -11,7 +11,8 @@
         <div id="divdateselect" style="display: none;">
         <%= date_select :date, default:Date.today %>
         </div>
-        <%= text_field_tag :description, nil, :placeholder => "What's the status?" %>
+        <%= select_tag :description, "<option>Standby</option><option>In Progress</option><option>Nearly There</option><option>Ongoing</option><option>Complete</option>".html_safe, :include_blank => true %>
+        <%= submit_tag "Update Status", :class => "btn btn-mini" %>
       <% end %>
     </p>
 
@@ -37,7 +38,7 @@
       <p>
       <%= form_tag(assignments_url, method: 'post', :remote => true, :id => "team_form") do %>
         <%= select_tag :user_id, options_from_collection_for_select(User.order('name').all, :id, :name), :include_blank => true %>
-        <%= hidden_field_tag :project_id, @project.id %><%= submit_tag "Add To Team", :class => "btn btn-success" %>
+        <%= hidden_field_tag :project_id, @project.id %><%= submit_tag "Add To Team", :class => "btn btn-mini" %>
       <% end %>
       </p>
     </p>
