@@ -1,0 +1,43 @@
+<div class="span6 well">
+<% if @milestone.errors.any? %>
+  <% @milestone.errors.full_messages.each do |msg| %>
+    <div class="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <%= msg %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= form_for @milestone do |f| %>
+
+  <div>
+    <%= f.label :project_id %>
+    <%= f.select :project_id, options_from_collection_for_select(Project.all, :id, :title) %>
+  </div>
+
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+
+  <div>
+    <%= f.label :date_created %>
+     <%= f.date_select :date_created, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
+  </div>
+
+  <div>
+    <%= f.label :due_date %>
+    <%= f.date_select :due_date, :order => [:day, :month, :year ], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
+  </div>
+
+  <div>
+    <%= f.submit %>
+  </div>
+
+<% end %>
+</div>

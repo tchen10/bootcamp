@@ -1,32 +1,12 @@
-<title>New User</title>
+<% if @user.errors.any? %>
+  <% @user.errors.full_messages.each do |msg| %>
+    <div class="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <%= msg %>
+    </div>
+  <% end %>
+<% end %>
+
 <h1>New User</h1>
 
-
-<%= form_tag(users_url, method: 'post') do %>
-
-
-  <div>
-    <%= label_tag :name, "Display Name:" %>
-    <%= text_field_tag :name %>
-  </div>
-
-  <div>
-    <%= label_tag :email, "Email" %>
-    <%= email_field_tag :email %>
-  </div>
-
-  <div>
-    <%= label_tag :password, "Password:" %>
-    <%= password_field_tag :password %>
-  </div>
-
-  <div>
-    <%= label_tag :password_confirmation, "Confirm Your Password:" %>
-    <%= password_field_tag :password_confirmation %>
-  </div>
-
-  <div>
-    <%= submit_tag "Create User" %>
-  </div>
-
-<% end %>
+<%= render 'form' %>

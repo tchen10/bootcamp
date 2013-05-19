@@ -18,7 +18,7 @@ class AssignmentsController < ApplicationController
     @assignment.project_id = params[:project_id]
 
     if @assignment.save
-      redirect_to :back
+      redirect_to assignment
     else
       render 'new'
     end
@@ -34,7 +34,7 @@ class AssignmentsController < ApplicationController
     @assignment.project_id = params[:project_id]
 
     if @assignment.save
-      redirect_to assignments_url
+      redirect_to assignment
     else
       render 'edit'
     end

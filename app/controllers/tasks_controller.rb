@@ -13,16 +13,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new
-    @task.project_id = params[:project_id]
-    @task.milestone_id = params[:milestone_id]
-    @task.description = params[:description]
-    @task.date_created = params[:date_created].map{|k,v| v}.join("-").to_date
-    @task.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
-    @task.date_completed = params[:date_completed].map{|k,v| v}.join("-").to_date
-    @task.user_id = params[:user_id]
-    @task.status = params[:status]
-    @task.complete = params[:complete]
+    @task = Task.new(params[:task])
 
     if @task.save
       redirect_to :back, :notice => "New task created!"
@@ -37,17 +28,8 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find_by_id(params[:id])
-    @task.project_id = params[:project_id]
-    @task.milestone_id = params[:milestone_id]
-    @task.description = params[:description]
-    @task.date_created = params[:date_created].map{|k,v| v}.join("-").to_date
-    @task.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
-    @task.date_completed = params[:date_completed].map{|k,v| v}.join("-").to_date
-    @task.user_id = params[:user_id]
-    @task.status = params[:status]
-    @task.complete = params[:complete]
 
-    if @task.save
+    if @task.update_attributes(params[:task])
       redirect_to :back, :notice => "Task updated!"
           else
       render 'edit', :notice => "Nice try."

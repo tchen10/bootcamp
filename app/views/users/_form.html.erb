@@ -1,0 +1,51 @@
+<div class="span6 well">
+
+<%= form_for @user do |f| %>
+
+  <div>
+    <%= f.label :email, "Email:" %>
+    <%= f.text_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :password, "Password:" %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
+    <%= f.label :password_confirmation, "Confirm Password:" %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <div>
+    <%= f.label :name, "Display Name:" %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :image_url, "Image URL:" %>
+    <%= f.text_field :image_url %>
+  </div>
+
+  <div>
+    <%= f.label :home, "Home:" %>
+    <%= f.text_field :home %>
+  </div>
+
+  <div>
+    <%= f.label :birthday, "Birthday:" %>
+    <%= f.date_select :birthday, :order => [:day, :month, :year], :start_year => Time.now.year-70, :end_year => Time.now.year-10  %>
+  </div>
+
+  <div>
+    <%= f.label :bio, "Bio Box:" %>
+    <%= f.text_area :bio %>
+  </div>
+
+  <div>
+    <%= f.submit %>
+  </div>
+
+<% end %>
+
+</div>

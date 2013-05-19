@@ -13,12 +13,7 @@ class MilestonesController < ApplicationController
   end
 
   def create
-    @milestone = Milestone.new
-    @milestone.project_id = params[:project_id]
-    @milestone.title = params[:title]
-    @milestone.description = params[:description]
-    @milestone.date_created = params[:date_created].map{|k,v| v}.join("-").to_date
-    @milestone.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
+    @milestone = Milestone.new(params[:milestone])
 
     if @milestone.save
       redirect_to :back, :notice => "Milestone created!"
@@ -33,13 +28,8 @@ class MilestonesController < ApplicationController
 
   def update
     @milestone = Milestone.find_by_id(params[:id])
-    @milestone.project_id = params[:project_id]
-    @milestone.title = params[:title]
-    @milestone.description = params[:description]
-    @milestone.date_created = params[:date_created].map{|k,v| v}.join("-").to_date
-    @milestone.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
 
-    if @milestone.save
+    if @milestone.update_attributes(params[:milestone])
       redirect_to :back, :notice => "Milestone updated!"
     else
       render 'edit', :notice => "Nice try."

@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+  attr_accessible :title, :description, :date_created, :due_date
   has_many :assignments
   has_many :users, :through => :assignments
   has_many :statuses

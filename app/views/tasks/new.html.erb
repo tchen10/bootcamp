@@ -9,52 +9,54 @@
   <% end %>
 <% end %>
 
-<%= form_tag(tasks_url, method: 'post') do %>
-
-  <div>
-    <%= label_tag :project_id, "Project: *" %>
-    <%= select_tag :project_id, options_from_collection_for_select(Project.order('title').all, :id, :title, @task.project_id) %>
-  </div>
-
-  <div>
-    <%= label_tag :milestone_id, "Milestone: *" %>
-    <%= select_tag :milestone_id, options_from_collection_for_select(Milestone.order('title').all, :id, :title, @task.milestone_id), :include_blank => true %>
-  </div>
+<div class="span6 well">
+  <%= form_for @task do |f|%>
 
     <div>
-    <%= label_tag :description, "Description:" %>
-    <%= text_field_tag :description, @task.description %>
-  </div>
-
-  <div>
-    <%= label_tag :date_created, "Date Created: *" %>
-    <%= date_select :date_created, :date_created, :default => Date.today, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
-  </div>
-
-  <div>
-    <%= label_tag :due_date, "Due Date: *" %>
-    <%= date_select :due_date, :due_date, :default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
-  </div>
-
-  <div id="divdateselect" style="display: none;">
-    <%= label_tag :date_completed %>
-    <%= date_select :date_completed, :date_completed, :default => Date.today, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
-  </div>
+      <%= f.label :project_id, "Project:" %>
+      <%= f.select :project_id, options_from_collection_for_select(Project.order('title').all, :id, :title) %>
+    </div>
 
     <div>
-    <%= label_tag :user_id, "Team Member: *" %>
-    <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :name, @task.user_id) %>
-  </div>
+      <%= f.label :milestone_id, "Milestone:" %>
+      <%= f.select :milestone_id, options_from_collection_for_select(Milestone.order('title').all, :id, :title) %>
+    </div>
 
-  <div>
-    <%= label_tag :status %>
-    <%= text_field_tag :status, @task.status %>
-  </div>
+      <div>
+      <%= f.label :description, "Description:" %>
+      <%= f.text_field :description %>
+    </div>
 
-  <%= hidden_field_tag :complete, "incomplete" %>
+    <div>
+      <%= f.label :date_created, "Date Created:" %>
+      <%= f.date_select :date_created, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
+    </div>
+
+    <div>
+      <%= f.label :due_date, "Due Date:" %>
+      <%= f.date_select :due_date,:default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
+    </div>
+
+    <div id="divdateselect" style="display: none;">
+      <%= f.label :date_completed %>
+      <%= f.date_select :date_completed, :default => Date.today, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
+    </div>
+
+      <div>
+      <%= f.label :user_id, "Team Member:" %>
+      <%= f.select :user_id, options_from_collection_for_select(User.all, :id, :name) %>
+    </div>
+
+    <div>
+      <%= f.label :status %>
+      <%= f.text_field :status %>
+    </div>
+
+    <%= hidden_field_tag :complete, "incomplete" %>
 
 
-  <div>
-    <%= submit_tag "Create Task" %>
-  </div>
-<% end %>
+    <div>
+      <%= f.submit "Create Task" %>
+    </div>
+  <% end %>
+</div>

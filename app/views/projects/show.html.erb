@@ -85,20 +85,21 @@
     </table>
     <p><button class="btn btn-success", data-toggle="collapse", data-target="#quick_form">+</button></p>
     <div id="quick_form", class="collapse">
-      <%= form_tag(milestones_url, method: 'post', :class => "form-inline") do %>
-        <%= hidden_field_tag :project_id, @project.id %>
+      <% @milestone = Milestone.new %>
+      <%= form_for @milestone do |f| %>
+        <%= f.hidden_field :project_id, :value => @project.id %>
         <div class="span5">
-        <p><%= text_field_tag :title, nil, :placeholder => "Title" %></p>
+        <p><%= f.text_field :title, :placeholder => "Title" %></p>
         </div>
         <div id="divdateselect" style="display: none;">
-        <%= date_select :date_created, default:Date.today %>
+        <%= f.date_select :date_created, default:Date.today %>
         </div>
         <div class="span5">
-        <%= label_tag :due_date, "Due Date:" %>
-        <p><%= date_select :due_date, :due_date, {:default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2}, {:class => "span1"} %></p>
+        <%= f.label :due_date, "Due Date:" %>
+        <p><%= f.date_select :due_date, :default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %></p>
         </div>
         <div class="span5">
-        <%= submit_tag "Set Milestone", :class => "btn btn-mini" %>
+        <%= f.submit "Set Milestone", :class => "btn btn-mini" %>
         </div>
       <% end %>
     </div>
@@ -113,7 +114,7 @@
           <th>Assigned To</th>
           <th>Due Date</th>
           <th>Milestone</th>
-          <th>Status</th>
+          <th>Status (Click to Change)</th>
           <th>Update</th>
         </tr>
       </thead>
@@ -128,22 +129,25 @@
         <td><%= link_to task.user.name, user_url(task.user_id) %></td>
         <td><%= task.due_date %></td>
         <td><%= link_to task.milestone.title, milestone_url(task.milestone.id) %></td>
-        <td><%= task.status %></td>
-        <%= form_tag(task_url(task.id), method: 'put', :class => "form-inline") do %>
-        <%= hidden_field_tag :project_id, task.project_id %>
-        <%= hidden_field_tag :milestone_id, task.milestone.id %>
-        <%= hidden_field_tag :description, task.description %>
-        <div id="divdateselect" style="display: none;">
-          <%= date_select :date_created, :date_created, :default => task.date_created, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
-          <%= date_select :due_date, :due_date, :default => task.due_date, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
-          <%= date_select :date_completed, :date_completed, :default => Date.today, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
-        </div>
-        <%= hidden_field_tag :user_id, task.user_id %>
-        <td><%= text_field_tag :status, nil, :placeholder => "Status?", :class => "input-mini" %>
-        <%= hidden_field_tag :complete, "incomplete" %>
-        <%= check_box_tag :complete, "complete", false %>
-        <%= submit_tag "Update", :class => "btn btn-mini" %>
-        <% end %>
+        <td><span name="status"><%= task.status %></span>
+          <span name="newstatus">
+            <% @task = Task.find_by_id(task.id) %>
+            <%= form_for @task do |f| %>
+              <%= f.hidden_field :project_id %>
+              <%= f.hidden_field :milestone_id %>
+              <%= f.hidden_field :description %>
+            <div id="divdateselect" style="display: none;">
+              <%= f.date_select :date_created %>
+              <%= f.date_select :due_date %>
+              <%= f.date_select :date_completed %>
+            </div>
+            <%= f.hidden_field :user_id %>
+            <%= f.text_field :status, {:placeholder => "Status?", :class => "input-mini"} %>
+            <%= f.hidden_field :complete, :value => "incomplete" %>
+            <%= f.check_box :complete, {}, "complete", "incomplete"  %>
+            <%= f.submit "Update", :class => "btn btn-mini" %>
+            <% end %>
+          </span>
         </td>
         <td><%= link_to 'Edit', edit_task_url(task), :class => "btn btn-mini" %></td>
       </tr>
@@ -152,27 +156,30 @@
     </table>
     <p><button class="btn btn-success", data-toggle="collapse", data-target="#quick_taskform">+</button></p>
       <div id="quick_taskform", class="collapse">
-        <%= form_tag(tasks_url, method: 'post') do %>
-        <%= hidden_field_tag :project_id, @project.id %>
+        <% @task = Task.new %>
+        <%= form_for @task do |f| %>
+        <%= f.hidden_field :project_id, :value => @project.id %>
         <div class="span5">
-         <%= select_tag :milestone_id, options_from_collection_for_select(@project.milestones.order('title').all, :id, :title) %><%= text_field_tag :description, nil, :placeholder => "Description" %>
+          <%= f.select :milestone_id, options_from_collection_for_select(@project.milestones.order('title').all, :id, :title) %>
+          <%= f.text_field :description, :placeholder => "Description" %>
         </div>
         <div id="divdateselect" style="display: none;">
-          <%= date_select :date_created, default:Date.today %>
-          <%= date_select :date_completed, default:Date.today %>
+          <%= f.date_select :date_created, default:Date.today %>
+          <%= f.date_select :date_completed, default:Date.today %>
         </div>
         <div class="span5">
-          <%= label_tag :due_date, "Due Date:" %>
-          <%= date_select :due_date, :due_date, {:default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2}, {:class => "span1"} %>
+          <%= f.label :due_date, "Due Date:" %>
+          <%= f.date_select :due_date, :default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
         </div>
         <div class="span5">
         <%= label_tag :user_id, "Assigned To:" %>
-        <%= select_tag :user_id, options_from_collection_for_select(User.order('name').all, :id, :name), :include_blank => true %>
+        <%= f.select :user_id, options_from_collection_for_select(User.order('name').all, :id, :name) %>
         </div>
-        <%= hidden_field_tag :complete, "incomplete" %>
+        <%= f.hidden_field :status, :value => "Update Status!" %>
+        <%= f.hidden_field :complete, :value => "incomplete" %>
 
         <div class="span5">
-        <%= submit_tag "Create Task", :class => "btn btn-mini" %>
+        <%= f.submit "Create Task", :class => "btn btn-mini" %>
         </div>
         <% end %>
       </div>
@@ -208,5 +215,12 @@
     </div>
 </div>
 
+<script type="text/javascript">
+  $('span[name=newstatus]').hide();
+  $('span[name=status]').click(function() {
+    $(this).hide();
+  $('span[name=newstatus]', $(this).closest('td')).show();
+  });
+</script>
 
 

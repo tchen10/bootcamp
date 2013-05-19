@@ -1,6 +1,6 @@
 BootcampApp::Application.routes.draw do
-   # Routes for Pages
-  root :to => 'sessions#new'
+   # Route for Homepage
+  root :to => 'users#index'
 
   # Routes for the Task resource:
   # CREATE

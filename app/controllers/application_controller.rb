@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   def authorize
     unless session[:user_id]
-      redirect_to home_url
+      redirect_to new_session_url
     end
     return
   end

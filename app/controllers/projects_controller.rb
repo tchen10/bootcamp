@@ -13,11 +13,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new
-    @project.title = params[:title]
-    @project.description = params[:description]
-    @project.date_created = params[:date_created].map{|k,v| v}.join("-").to_date
-    @project.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
+    @project = Project.new(params[:project])
 
     if @project.save
       redirect_to project_url(@project.id), :notice => "Project created!"
@@ -32,12 +28,8 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find_by_id(params[:id])
-    @project.title = params[:title]
-    @project.description = params[:description]
-    @project.date_created = params[:date_created].map{|k,v| v}.join("-").to_date
-    @project.due_date = params[:due_date].map{|k,v| v}.join("-").to_date
 
-    if @project.save
+    if @project.update_attributes(params[:project])
       redirect_to project_url(params[:id]), :notice => "Project updated!"
     else
       render 'edit', :notice => "Nice try."

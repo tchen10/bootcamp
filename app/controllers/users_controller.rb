@@ -7,6 +7,7 @@ class UsersController < ApplicationController
       redirect_to :back, notice: "Nice Try"
     end
   end
+
   def index
     @users = User.all
   end
@@ -20,11 +21,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new
-    @user.email = params[:email]
-    @user.password = params[:password]
-    @user.password_confirmation = params[:password_confirmation]
-    @user.name = params[:name]
+    @user = User.new(params[:user])
 
     if @user.save
       redirect_to user_url(@user.id)
@@ -39,17 +36,9 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find_by_id(params[:id])
-    @user.email = params[:email]
-    @user.password = params[:password]
-    @user.password_confirmation = params[:password_confirmation]
-    @user.name = params[:name]
-    @user.image_url = params[:image_url]
-    @user.home = params[:home]
-    @user.birthday = params[:birthday].map{|k,v| v}.join("-").to_date
-    @user.bio = params[:bio]
 
-    if @user.save
-      redirect_to user_url(@user.id)
+    if @user.update_attributes(params[:user])
+      redirect_to @user
     else
       render 'edit'
     end
