@@ -14,12 +14,12 @@
 
     <div>
       <%= f.label :project_id, "Project:" %>
-      <%= f.select :project_id, options_from_collection_for_select(Project.order('title').all, :id, :title) %>
+      <%= f.collection_select :project_id, Project.order('title').all, :id, :title %>
     </div>
 
     <div>
       <%= f.label :milestone_id, "Milestone:" %>
-      <%= f.select :milestone_id, options_from_collection_for_select(Milestone.order('title').all, :id, :title) %>
+      <%= f.collection_select :milestone_id, Milestone.order('title').all, :id, :title %>
     </div>
 
     <div>
@@ -44,7 +44,7 @@
 
       <div>
       <%= f.label :user_id, "Team Member:" %>
-      <%= f.select :user_id, options_from_collection_for_select(User.all, :id, :name) %>
+      <%= f.select :user_id, options_from_collection_for_select(User.order('name').all, :id, :name) %>
     </div>
 
     <div>

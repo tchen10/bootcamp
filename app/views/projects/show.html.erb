@@ -160,7 +160,7 @@
         <%= form_for @task do |f| %>
         <%= f.hidden_field :project_id, :value => @project.id %>
         <div class="span5">
-          <%= f.select :milestone_id, options_from_collection_for_select(@project.milestones.order('title').all, :id, :title) %>
+          <%= f.collection_select :milestone_id, @project.milestones.order('title').all, :id, :title %>
           <%= f.text_field :description, :placeholder => "Description" %>
         </div>
         <div id="divdateselect" style="display: none;">
@@ -173,7 +173,7 @@
         </div>
         <div class="span5">
         <%= label_tag :user_id, "Assigned To:" %>
-        <%= f.select :user_id, options_from_collection_for_select(User.order('name').all, :id, :name) %>
+        <%= f.collection_select :user_id, User.order('name').all, :id, :name %>
         </div>
         <%= f.hidden_field :status, :value => "Update Status!" %>
         <%= f.hidden_field :complete, :value => "incomplete" %>
