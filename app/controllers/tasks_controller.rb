@@ -28,6 +28,7 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find_by_id(params[:id])
+    @task.date_completed = Date.today
 
     if @task.update_attributes(params[:task])
       redirect_to :back, :notice => "Task updated!"

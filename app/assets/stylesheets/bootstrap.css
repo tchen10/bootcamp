@@ -2246,9 +2246,18 @@ table th[class*="span"],
 }
 
 .table tbody tr.error > td {
-  background-color: #fc7474;
+  background-color: #eb5757;
 }
 
+.table tbody tr.error td > a {
+  color: #004669;
+  font-weight: bold;
+}
+
+.table tbody tr.error td p > a {
+  color: #004669;
+  font-weight: bold;
+}
 .table tbody tr.warning > td {
   background-color: #fcf8e3;
 }
