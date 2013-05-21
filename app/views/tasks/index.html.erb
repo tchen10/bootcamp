@@ -14,7 +14,6 @@
         <th>Due Date</th>
         <th>Assigned To:</th>
         <th>Status</th>
-        <th>Last Update</th>
         <th>Complete?</th>
         <th></th>
       </tr>
@@ -33,7 +32,6 @@
         <td><%= best_in_place task, :due_date, :type => :date %></td>
         <td><%= link_to task.user.name, user_url(task.user.id) %></td>
         <td><%= best_in_place task, :status %></td>
-        <td><%= task.date_completed %></td>
         <td><%= best_in_place task, :complete, :type => :select, :collection => [["incomplete", "Nope"], ["complete", "Yep!"]] %></td>
         <td><%= link_to 'Edit', edit_task_url(task), :class => "btn btn-mini" %></td>
       </tr>
