@@ -53,15 +53,6 @@
         <%= link_to 'Edit', edit_project_url(@project.id), :class => "btn btn-mini" %>  <%= link_to 'Delete Project', project_url(@project.id), :class => "btn btn-mini", method: 'delete', data: { confirm: "Do you really want to delete this project?" } %>
       </p>
     </div>
-    <div class="well">
-      <h4>Recent Discussions:</h4>
-      <ul>
-        <% @project.project_discussions.limit(5).each do |dis| %>
-          <li><%= link_to truncate(dis.post), project_discussion_url(dis.id) %> (<%= dis.user.name %>)</li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
 <div class="span10">
   <div class="well">
     <h4><b>Milestones:</b></h4>
