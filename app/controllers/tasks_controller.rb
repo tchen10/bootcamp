@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-
+  respond_to :html, :json
   def index
     @tasks = Task.order('due_date').all
   end
@@ -30,11 +30,8 @@ class TasksController < ApplicationController
     @task = Task.find_by_id(params[:id])
     @task.date_completed = Date.today
 
-    if @task.update_attributes(params[:task])
-      redirect_to :back, :notice => "Task updated!"
-          else
-      render 'edit', :notice => "Nice try."
-    end
+    @task.update_attributes(params[:task])
+    respond_with @task
   end
 
   def destroy

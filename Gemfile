@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'starter_generators'
-
 gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
@@ -44,3 +42,5 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use debugger
 # gem 'debugger'
+
+gem 'best_in_place'

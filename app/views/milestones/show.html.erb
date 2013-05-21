@@ -61,9 +61,9 @@
             <th>Description</th>
             <th>Due date</th>
             <th>Assigned</th>
-            <th>Status (Click to Change)</th>
+            <th>Status</th>
             <th>Last Update</th>
-            <th></th>
+            <th>Complete?</th>
             <th></th>
           </tr>
         </thead>
@@ -76,30 +76,12 @@
             <tr>
           <% end %>
             <td><%= link_to task.description, task_url(task.id) %></td>
-            <td><%= task.due_date %></td>
+            <td><%= best_in_place task, :due_date, :type => :date %></td>
             <td><%= link_to task.user.name, user_url(task.user.id) %></td>
-            <td><span name="status"><%= task.status %></span>
-              <span name="newstatus">
-                <% @task = Task.find_by_id(task.id) %>
-                <%= form_for @task do |f| %>
-                  <%= f.hidden_field :project_id %>
-                  <%= f.hidden_field :milestone_id %>
-                  <%= f.hidden_field :description %>
-                <div id="divdateselect" style="display: none;">
-                  <%= f.date_select :date_created %>
-                  <%= f.date_select :due_date %>
-                </div>
-                <%= f.hidden_field :user_id %>
-                <%= f.text_field :status, {:placeholder => "Status?", :class => "input-mini"} %>
-                <%= f.hidden_field :complete, :value => "incomplete" %>
-                <%= f.check_box :complete, {}, "complete", "incomplete"  %>
-                <%= f.submit "Update", :class => "btn btn-mini" %>
-                <% end %>
-              </span>
-            </td>
+            <td><%= best_in_place task, :status %></td>
             <td><%= task.date_completed %></td>
+            <td><%= best_in_place task, :complete, :type => :select, :collection => [["incomplete", "Nope"], ["complete", "Yep!"]] %></td>
             <td><%= link_to 'Edit', edit_task_url(task), :class => "btn btn-mini" %></td>
-            <td><%= link_to 'Delete', task_url(task), :class => "btn btn-mini", method: 'delete', data: { confirm: "Do you really want to delete this task?" } %></td>
           </tr>
         <% end %>
         </tbody>
@@ -161,12 +143,4 @@
   </table>
   </div>
 </div>
-
-<script type="text/javascript">
-  $('span[name=newstatus]').hide();
-  $('span[name=status]').click(function() {
-    $(this).hide();
-  $('span[name=newstatus]', $(this).closest('td')).show();
-  });
-</script>
 
