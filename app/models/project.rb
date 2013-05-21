@@ -5,6 +5,7 @@ class Project < ActiveRecord::Base
   has_many :statuses
   has_many :milestones, dependent: :restrict
   has_many :tasks, dependent: :restrict
+  has_many :project_discussions
 
   validates :title, :date_created, :due_date, :presence => true
 

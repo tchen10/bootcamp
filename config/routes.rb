@@ -1,5 +1,8 @@
 BootcampApp::Application.routes.draw do
-   # Route for Homepage
+  resources :project_discussions
+
+
+  # Route for Homepage
   root :to => 'users#index'
 
   # Routes for the Task resource:

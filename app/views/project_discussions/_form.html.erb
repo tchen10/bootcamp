@@ -1,0 +1,29 @@
+<%= form_for(@project_discussion) do |f| %>
+  <% if @project_discussion.errors.any? %>
+    <div class="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <% @project_discussion.errors.full_messages.each do |msg| %>
+      <%= msg %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :user_id %>
+    <%= f.collection_select :user_id, User.order('name').all, :id, :name %>
+  </div>
+
+  <div>
+    <%= f.label :project_id %>
+    <%= f.collection_select :project_id, Project.order('title').all, :id, :title %>
+  </div>
+
+  <div>
+    <%= f.label :post %>
+    <%= f.text_area :post %>
+  </div>
+  <div>
+
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -2,55 +2,65 @@
   <h1><%= @project.title %></h1>
 </div>
 
-  <div class="well span4">
-    <p>
-      <b>Status:</b>
-        <%= @project.recent_status.try(:description) %> <p>(updated: <%= @project.recent_status.try(:date) %>)</p>
-      <%= form_tag(statuses_url, method: 'post') do %>
-        <%= hidden_field_tag :project_id, @project.id %>
-        <div id="divdateselect" style="display: none;">
-        <%= date_select :date, default:Date.today %>
-        </div>
-        <%= select_tag :description, "<option>Standby</option><option>In Progress</option><option>Nearly There</option><option>Ongoing</option><option>Complete</option>".html_safe, :include_blank => true %>
-        <%= submit_tag "Update Status", :class => "btn btn-mini" %>
-      <% end %>
-    </p>
+  <div class="span4">
+    <div class="well">
+      <p>
+        <b>Status:</b>
+          <%= @project.recent_status.try(:description) %> <p>(updated: <%= @project.recent_status.try(:date) %>)</p>
+        <%= form_tag(statuses_url, method: 'post') do %>
+          <%= hidden_field_tag :project_id, @project.id %>
+          <div id="divdateselect" style="display: none;">
+          <%= date_select :date, default:Date.today %>
+          </div>
+          <%= select_tag :description, "<option>Standby</option><option>In Progress</option><option>Nearly There</option><option>Ongoing</option><option>Complete</option>".html_safe, :include_blank => true %>
+          <%= submit_tag "Update Status", :class => "btn btn-mini" %>
+        <% end %>
+      </p>
 
-    <p>
-      <b>Due date:</b>
-      <%= @project.due_date %>
-    </p>
+      <p>
+        <b>Due date:</b>
+        <%= @project.due_date %>
+      </p>
 
-    <p>
-      <b>Description:</b>
-      <%= @project.description %>
-    </p>
+      <p>
+        <b>Description:</b>
+        <%= @project.description %>
+      </p>
 
-    <p>
-      <b>Team:</b>
+      <p>
+        <b>Team:</b>
+        <ul>
+          <% @project.users.each do |user| %>
+            <li><%= link_to user.name, user_url(user) %>
+              <%= link_to 'Delete'.html_safe, assignment_url(Assignment.find_by_user_id_and_project_id(user.id, @project.id)), method: 'delete', data: { confirm: "Delete Team Member?" }, :class => "btn btn-mini", :id => "delete_team" %>
+            </li>
+          <% end %>
+        </ul>
+        <p>
+        <%= form_tag(assignments_url, method: 'post', :remote => true, :id => "team_form") do %>
+          <%= select_tag :user_id, options_from_collection_for_select(User.order('name').all, :id, :name), :include_blank => true %>
+          <%= hidden_field_tag :project_id, @project.id %><%= submit_tag "Add To Team", :class => "btn btn-mini" %>
+        <% end %>
+        </p>
+      </p>
+
+      <p>
+        <b>Date created:</b>
+        <%= @project.date_created %>
+      </p>
+
+      <p>
+        <%= link_to 'Edit', edit_project_url(@project.id), :class => "btn btn-mini" %>  <%= link_to 'Delete Project', project_url(@project.id), :class => "btn btn-mini", method: 'delete', data: { confirm: "Do you really want to delete this project?" } %>
+      </p>
+    </div>
+    <div class="well">
+      <h4>Recent Discussions:</h4>
       <ul>
-        <% @project.users.each do |user| %>
-          <li><%= link_to user.name, user_url(user) %>
-            <%= link_to 'Delete'.html_safe, assignment_url(Assignment.find_by_user_id_and_project_id(user.id, @project.id)), method: 'delete', data: { confirm: "Delete Team Member?" }, :class => "btn btn-mini", :id => "delete_team" %>
-          </li>
+        <% @project.project_discussions.limit(5).each do |dis| %>
+          <li><%= link_to truncate(dis.post), project_discussion_url(dis.id) %> (<%= dis.user.name %> <%= dis.updated_at.strftime("on %b %d") %>)</li>
         <% end %>
       </ul>
-      <p>
-      <%= form_tag(assignments_url, method: 'post', :remote => true, :id => "team_form") do %>
-        <%= select_tag :user_id, options_from_collection_for_select(User.order('name').all, :id, :name), :include_blank => true %>
-        <%= hidden_field_tag :project_id, @project.id %><%= submit_tag "Add To Team", :class => "btn btn-mini" %>
-      <% end %>
-      </p>
-    </p>
-
-    <p>
-      <b>Date created:</b>
-      <%= @project.date_created %>
-    </p>
-
-    <p>
-      <%= link_to 'Edit', edit_project_url(@project.id), :class => "btn btn-mini" %>  <%= link_to 'Delete Project', project_url(@project.id), :class => "btn btn-mini", method: 'delete', data: { confirm: "Do you really want to delete this project?" } %>
-    </p>
+    </div>
   </div>
 <div class="span10">
   <div class="well">

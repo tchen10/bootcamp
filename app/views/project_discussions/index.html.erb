@@ -1,0 +1,27 @@
+<h1>Project Discussions</h1>
+
+<table>
+  <tr>
+    <th>Post</th>
+    <th>User</th>
+    <th>Project</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @project_discussions.each do |project_discussion| %>
+  <tr>
+    <td><%= project_discussion.post %></td>
+    <td><%= project_discussion.user_id %></td>
+    <td><%= project_discussion.project_id %></td>
+    <td><%= link_to 'Show', project_discussion %></td>
+    <td><%= link_to 'Edit', edit_project_discussion_path(project_discussion) %></td>
+    <td><%= link_to 'Destroy', project_discussion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Project discussion', new_project_discussion_path %>

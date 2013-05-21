@@ -1,0 +1,19 @@
+<h1>Discussion</h1>
+
+<h4><%= link_to @project_discussion.user.name, user_url(@project_discussion.user.id) %> has something to say about <%= @project_discussion.project.title %>. </h4>
+
+<div class="well">
+  <p>
+    <%= @project_discussion.user.name %> says,
+  </p>
+  <p>
+    <%= @project_discussion.post %>
+  </p>
+  <p class="text-right">
+    <%= @project_discussion.updated_at %>
+  </p>
+</div>
+
+
+<%= link_to 'Edit', edit_project_discussion_path(@project_discussion) %> |
+<%= link_to 'Back', project_discussions_path %>
