@@ -228,6 +228,7 @@ body {
   line-height: 20px;
   color: #333333;
   background-color: #ffffff;
+  padding-top: 60px;
 }
 
 a {
@@ -2247,6 +2248,12 @@ table th[class*="span"],
 
 .table tbody tr.error > td {
   background-color: #eb5757;
+  background-image: -moz-linear-gradient(top, #ebcccc, #eb5757);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ebcccc), to(#eb5757));
+  background-image: -webkit-linear-gradient(top, #ebcccc, #eb5757);
+  background-image: -o-linear-gradient(top, #ebcccc, #eb5757);
+  background-image: linear-gradient(to bottom, #ebcccc, #eb5757);
+  background-repeat: repeat-x;
 }
 
 .table tbody tr.error td > a {

@@ -10,7 +10,7 @@
 </head>
 <body>
   <% if session[:user_id].present? %>
-    <div class="navbar">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <%= link_to "ZenGarden", users_url, :class => :brand %>
@@ -36,7 +36,7 @@
       <strong><%= notice %></strong>
     </div>
     <% end %>
-    <div class="container-fluid">
+    <div class="container">
       <%= yield %>
     </div>
   </div>
