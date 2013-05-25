@@ -54,36 +54,30 @@
   </div>
   <div class="span8">
     <div class="well">
-      <h4><b>Tasks:</b></h4>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Description</th>
-            <th>Due date</th>
-            <th>Assigned</th>
-            <th>Status</th>
-            <th>Complete?</th>
-            <th></th>
-          </tr>
-        </thead>
-
-        <tbody>
-        <% @milestone.tasks.incomplete.order('due_date').all.each do |task| %>
+      <h3><b>Task Timeline</b></h3>
+      <% @milestone.tasks.incomplete.order('due_date').due_dates.each do |due_date| %>
+        <h4><%= due_date %></h4>
+        <table class="table table-hover">
+        <% @milestone.tasks.where("due_date" => due_date).each do |task| %>
+          <tbody>
           <% if task.due_date <= Date.today %>
             <tr class="error">
           <% else %>
             <tr>
           <% end %>
-            <td><%= link_to task.description, task_url(task.id) %></td>
-            <td><%= best_in_place task, :due_date, :type => :date %></td>
-            <td><%= link_to task.user.name, user_url(task.user.id) %></td>
-            <td><%= best_in_place task, :status %></td>
-            <td><%= best_in_place task, :complete, :type => :select, :collection => [["incomplete", "Nope"], ["complete", "Yep!"]] %></td>
-            <td><%= link_to 'Edit', edit_task_url(task), :class => "btn btn-mini" %></td>
+          <td>
+            <ul>
+              <li>
+                <b><%= best_in_place task, :description %></b> (<%= best_in_place task, :user_id, :type => :select, :collection => User::list_user_options %> says, "<%= best_in_place task, :status %>")
+              </li>
+            </ul>
+          </td>
+          <td><%= best_in_place task, :due_date, :type => :date %> | <%= best_in_place task, :complete, :type => :select, :collection => [["incomplete", "Nope"], ["complete", "Yep!"]] %></td>
           </tr>
-        <% end %>
         </tbody>
       </table>
+      <% end %>
+    <% end %>
       <p><button class="btn btn-success", data-toggle="collapse", data-target="#quick_form">+</button></p>
       <div id="quick_form", class="collapse">
         <% @task = Task.new %>
@@ -115,30 +109,24 @@
   </div>
 
   <div class="well">
-    <h4><b>Completed Tasks:</b></h4>
+    <h3><b>Completed Tasks:</b></h3>
     <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Description</th>
-          <th>Due Date</th>
-          <th>Milestone</th>
-          <th>Date Completed</th>
-          <th></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @milestone.tasks.complete.order('due_date').all.each do |task| %>
-        <tr>
-          <td><%= link_to task.description, task_url(task.id) %></td>
-          <td><%= task.due_date %></td>
-          <td><%= link_to task.milestone.title, milestone_url(task.milestone.id) %></td>
-          <td><%= task.date_completed %></td>
-          <td><%= link_to 'Delete', task_url(task), :class => "btn btn-mini", method: 'delete', data: { confirm: "Do you really want to delete this task?" } %></td>
-        </tr>
-        <% end %>
+    <tbody>
+    <% @milestone.tasks.complete.order('due_date').all.each do |task| %>
+      <tr>
+        <td>
+          <ul>
+            <li>
+              <b><%= task.description %></b> (<%= task.user.name %>)
+            </li>
+          <ul>
+        </td>
+        <td><%= task.date_completed %></td>
+        <td><%= link_to 'Delete', task_url(task), :class => "btn btn-mini", method: 'delete', data: { confirm: "Do you really want to delete this task?" } %></td>
+      </tr>
+    <% end %>
     </tbody>
-  </table>
+    </table>
   </div>
 </div>
 

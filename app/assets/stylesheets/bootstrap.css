@@ -2261,9 +2261,10 @@ table th[class*="span"],
   font-weight: bold;
 }
 
-.table tbody tr.error td p > a {
+.table tbody tr.error td li > a {
   color: #004669;
   font-weight: bold;
+  text-decoration: underline;
 }
 .table tbody tr.warning > td {
   background-color: #fcf8e3;

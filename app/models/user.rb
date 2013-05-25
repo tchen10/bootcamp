@@ -14,11 +14,15 @@ class User < ActiveRecord::Base
     return days.to_i
   end
 
-  def User.names_array
-    names = []
-    self.all.each do |user|
-      names << user.name
-    end
-    return names
+  # def User.names_array
+  #   names = []
+  #   self.all.each do |user|
+  #     names << user.name
+  #   end
+  #   return names
+  # end
+
+  def self.list_user_options
+    User.select("id, name").map {|x| [x.id, x.name]}
   end
 end

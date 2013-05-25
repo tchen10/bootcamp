@@ -18,3 +18,4 @@
 //= require_tree
 
 $.datepicker.setDefaults({ dateFormat: 'dd-mm-yy'});
+

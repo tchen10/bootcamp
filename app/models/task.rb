@@ -13,4 +13,14 @@ class Task < ActiveRecord::Base
   def Task.incomplete
     return self.where("complete" => "incomplete")
   end
+
+  def Task.due_dates
+    due_dates = []
+    Task.all.each do |task|
+      t = task.due_date
+      due_dates << t
+    end
+    return due_dates.uniq
+  end
+
 end
