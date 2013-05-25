@@ -1,27 +1,14 @@
-<h1>Project Discussions</h1>
-
-<table>
-  <tr>
-    <th>Post</th>
-    <th>User</th>
-    <th>Project</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @project_discussions.each do |project_discussion| %>
-  <tr>
-    <td><%= project_discussion.post %></td>
-    <td><%= project_discussion.user_id %></td>
-    <td><%= project_discussion.project_id %></td>
-    <td><%= link_to 'Show', project_discussion %></td>
-    <td><%= link_to 'Edit', edit_project_discussion_path(project_discussion) %></td>
-    <td><%= link_to 'Destroy', project_discussion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Project discussion', new_project_discussion_path %>
+<div class="row-fluid">
+  <div class="span 12">
+    <%= link_to '+', new_project_discussion_url, :class => "pull-right btn btn-success" %>
+    <h1>Project Discussions</h1>
+    <% ProjectDiscussion.order('created_at DESC').all.each do |dis| %>
+      <div class="well">
+        <h4>About <%= link_to dis.project.title, project_url(dis.project_id) %></h4>
+        <p><%= dis.post %></p>
+        <p class="text-right"><em><%= dis.user.name %> on <%= dis.created_at.strftime("%b %-d at %l:%M%p") %></em></p>
+        <p class="text-right"><%= link_to "#{dis.project_comments.count} comments", project_discussion_url(dis.id) %></p>
+      </div>
+    <% end %>
+  </div>
+</div>

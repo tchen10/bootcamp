@@ -22,6 +22,7 @@
             <li class="<%= active_if(:controller => "projects") %>"><%= link_to "Projects", projects_url %></li>
             <li class="<%= active_if(:controller => "milestones") %>"><%= link_to "Milestones", milestones_url %></li>
             <li class="<%= active_if(:controller => "tasks") %>"><%= link_to "Tasks", tasks_url %></li>
+            <li class="<%= active_if(:controller => "project_discussions") %>"><%= link_to "Discussions", project_discussions_url %></li>
           </ul>
           <ul class="nav pull-right">
             <li><%= link_to "Sign Out", session_url, method: 'delete' %></li>

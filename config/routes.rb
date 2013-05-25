@@ -1,4 +1,7 @@
 BootcampApp::Application.routes.draw do
+  resources :project_comments
+
+
   resources :project_discussions
 
 

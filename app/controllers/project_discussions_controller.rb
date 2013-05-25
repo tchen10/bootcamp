@@ -44,7 +44,7 @@ class ProjectDiscussionsController < ApplicationController
 
     respond_to do |format|
       if @project_discussion.save
-        format.html { redirect_to @project_discussion, notice: 'Project discussion was successfully created.' }
+        format.html { redirect_to :back, notice: 'Project discussion was successfully created.' }
         format.json { render json: @project_discussion, status: :created, location: @project_discussion }
       else
         format.html { render action: "new" }

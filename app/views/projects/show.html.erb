@@ -57,16 +57,13 @@
           </p>
         </div>
         <div class="well">
-          <h3><b>Recent Discussions</b> <%= link_to "See All", discuss_project_url(@project.id), :class => "btn btn-mini" %></h3>
+          <h3><b>Discussions</b> <%= link_to "See All", discuss_project_url(@project.id), :class => "btn btn-mini" %></h3>
           <% @project.project_discussions.order('created_at DESC').all.first(5).each do |dis| %>
             <div class="well well-small">
-            <ul class="unstyled">
-              <li>
-                <p><%= truncate(dis.post, :length => 50) %></p>
-                <p class="text-right"><em><%= dis.user.name %> on <%= dis.created_at.strftime("%b %-d at %l:%M%p") %></em></p>
-                <p class="text-right"><em>0 comments</em></p>
-              </li>
-            </ul>
+              <p><%= truncate(dis.post, :length => 50) %></p>
+              <p class="text-right"><em><%= dis.user.name %> on <%= dis.created_at.strftime("%b %-d at %l:%M%p") %></em></p>
+              <p class="text-right"><%= link_to "#{dis.project_comments.count} comments", project_discussion_url(dis.id) %>
+              </p>
           </div>
           <% end %>
           <p><button class="btn btn-success", data-toggle="collapse", data-target="#quick_disform">+</button></p>
@@ -76,7 +73,7 @@
               <%= f.hidden_field :project_id, :value => @project.id %>
               <%= f.hidden_field :user_id, :value => session[:user_id] %>
               <div>
-                <p><%= f.text_area :post, :rows => 5 %></p>
+                <p><%= f.text_area :post, :rows => 5, :class => "input-block-level" %></p>
               </div>
               <div>
                 <%= f.submit "Post", :class => "btn btn-mini" %>
@@ -122,17 +119,17 @@
             <% @milestone = Milestone.new %>
             <%= form_for @milestone do |f| %>
               <%= f.hidden_field :project_id, :value => @project.id %>
-              <div class="span5">
+              <div class="span6">
                 <p><%= f.text_field :title, :placeholder => "Title" %></p>
               </div>
               <div id="divdateselect" style="display: none;">
                 <%= f.date_select :date_created, default:Date.today %>
               </div>
-              <div class="span5">
+              <div class="span6">
                 <%= f.label :due_date, "Due Date:" %>
                 <p><%= f.date_select :due_date, :default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %></p>
               </div>
-              <div class="span5">
+              <div class="span6">
                 <%= f.submit "Set Milestone", :class => "btn btn-mini" %>
               </div>
             <% end %>
@@ -168,7 +165,7 @@
             <% @task = Task.new %>
             <%= form_for @task do |f| %>
             <%= f.hidden_field :project_id, :value => @project.id %>
-              <div class="span5">
+              <div class="span6">
                 <%= f.collection_select :milestone_id, @project.milestones.order('title').all, :id, :title %>
                 <%= f.text_field :description, :placeholder => "Description" %>
               </div>
@@ -176,17 +173,17 @@
                 <%= f.date_select :date_created, default:Date.today %>
                 <%= f.date_select :date_completed, default:Date.today %>
               </div>
-              <div class="span5">
+              <div class="span6">
                 <%= f.label :due_date, "Due Date:" %>
                 <%= f.date_select :due_date, :default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
               </div>
-              <div class="span5">
+              <div class="span6">
                 <%= label_tag :user_id, "Assigned To:" %>
                 <%= f.collection_select :user_id, User.order('name').all, :id, :name %>
               </div>
               <%= f.hidden_field :status, :value => "Update Status!" %>
               <%= f.hidden_field :complete, :value => "incomplete" %>
-              <div class="span5">
+              <div class="span6">
                 <%= f.submit "Create Task", :class => "btn btn-mini" %>
               </div>
             <% end %>
