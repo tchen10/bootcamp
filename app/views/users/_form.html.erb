@@ -33,13 +33,16 @@
     <%= f.text_area :bio, :rows => 5 %>
   </div>
 
-    <%= f.label :password, "Enter Your Password to Save Changes:" %>
-    <%= f.password_field :password %> <a href="#", id="changepassword">Change Password</a>
+  <div>
+    <%= f.label :time_zone, "Time Zone:" %>
+    <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, :default => "Central Time (US & Canada)" %>
+  </div>
 
-  <div id="confirmpassword">
+    <%= f.label :password, "Enter Your Password to Save Changes:" %>
+    <%= f.password_field :password %>
+
     <%= f.label :password_confirmation, "Confirm Your New Password:" %>
     <%= f.password_field :password_confirmation %>
-  </div>
 
   <div>
     <%= f.submit %>
@@ -48,11 +51,3 @@
 <% end %>
 
 </div>
-
-<script type="text/javascript">
-$('#confirmpassword').hide();
-$('#changepassword').click(function() {
-  $(this).hide();
-  $('#confirmpassword').show();
-});
-</script>
