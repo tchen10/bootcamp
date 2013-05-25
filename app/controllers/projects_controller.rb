@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  respond_to :html, :json
 
   def index
     @projects = Project.order('due_date').all
@@ -29,16 +30,17 @@ class ProjectsController < ApplicationController
   def update
     @project = Project.find_by_id(params[:id])
 
-    if @project.update_attributes(params[:project])
-      redirect_to project_url(params[:id]), :notice => "Project updated!"
-    else
-      render 'edit', :notice => "Nice try."
-    end
+    @project.update_attributes(params[:project])
+    respond_with @project
   end
 
   def destroy
     @project = Project.find_by_id(params[:id])
     @project.destroy
         redirect_to projects_url
-      end
+  end
+
+  def discussion
+    @project = Project.find_by_id(params[:id])
+  end
 end

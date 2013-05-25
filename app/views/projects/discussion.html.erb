@@ -1,0 +1,17 @@
+<div class="row-fluid">
+  <div class="span 12">
+    <h1><%= link_to @project.title, project_url %> Discussion</h1>
+    <% @project.project_discussions.order('created_at').all.each do |dis| %>
+      <div class="well">
+        <ul class="unstyled">
+          <li>
+            <p><%= dis.post %></p>
+            <p class="text-right"><em><%= dis.user.name %> on <%= dis.created_at.strftime("%b %-d at %l:%M%p") %></em></p>
+            <p class="text-right"><em>0 comments | + </em></p>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+</div>
+

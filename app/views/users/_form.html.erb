@@ -7,15 +7,6 @@
     <%= f.text_field :email %>
   </div>
 
-  <div>
-    <%= f.label :password, "Password:" %>
-    <%= f.password_field :password %>
-  </div>
-
-  <div>
-    <%= f.label :password_confirmation, "Confirm Password:" %>
-    <%= f.password_field :password_confirmation %>
-  </div>
 
   <div>
     <%= f.label :name, "Display Name:" %>
@@ -39,7 +30,15 @@
 
   <div>
     <%= f.label :bio, "Bio Box:" %>
-    <%= f.text_area :bio %>
+    <%= f.text_area :bio, :rows => 5 %>
+  </div>
+
+    <%= f.label :password, "Enter Your Password to Save Changes:" %>
+    <%= f.password_field :password %> <a href="#", id="changepassword">Change Password</a>
+
+  <div id="confirmpassword">
+    <%= f.label :password_confirmation, "Confirm Your New Password:" %>
+    <%= f.password_field :password_confirmation %>
   </div>
 
   <div>
@@ -49,3 +48,11 @@
 <% end %>
 
 </div>
+
+<script type="text/javascript">
+$('#confirmpassword').hide();
+$('#changepassword').click(function() {
+  $(this).hide();
+  $('#confirmpassword').show();
+});
+</script>

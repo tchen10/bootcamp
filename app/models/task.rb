@@ -23,4 +23,8 @@ class Task < ActiveRecord::Base
     return due_dates.uniq
   end
 
+  def formatted_date
+    "#{due_date.strftime("%a %b %-d")}"
+  end
+
 end

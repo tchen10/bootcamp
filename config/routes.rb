@@ -76,6 +76,9 @@ BootcampApp::Application.routes.draw do
 
   # DELETE
   delete '/projects/:id', controller: 'projects', action: 'destroy'
+
+  #DISCUSSIONS
+  get '/projects/:id/discussion', controller: 'projects', action:'discussion', as: 'discuss_project'
   #------------------------------
 
   # Routes for the User resource:

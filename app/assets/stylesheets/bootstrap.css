@@ -2259,6 +2259,7 @@ table th[class*="span"],
 .table tbody tr.error td > a {
   color: #004669;
   font-weight: bold;
+  text-decoration: underline;
 }
 
 .table tbody tr.error td li > a {
@@ -2266,6 +2267,13 @@ table th[class*="span"],
   font-weight: bold;
   text-decoration: underline;
 }
+
+.table tbody tr.error td p > a {
+  color: #004669;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 .table tbody tr.warning > td {
   background-color: #fcf8e3;
 }
@@ -3147,6 +3155,7 @@ table th[class*="span"],
   -webkit-border-radius: 3px;
      -moz-border-radius: 3px;
           border-radius: 3px;
+  background-color: #ffffff;
 }
 
 .fade {

@@ -1,132 +1,127 @@
-
+<div class="row-fluid">
   <div class="span12">
     <h1><%= @milestone.project.title %>: <%= @milestone.title %></h1>
-  </div>
+      <div class="row-fluid">
+        <div class="span4">
+          <div class="well">
+            <p>
+              <b>Description:</b>
+              <%= @milestone.description %>
+            </p>
+            <p>
+              <b>Date created:</b>
+              <%= @milestone.date_created %>
+            </p>
+            <p>
+              <b>Due date:</b>
+              <%= @milestone.due_date %>
+            </p>
+            <p>
+              <%= link_to "Edit", edit_milestone_url(@milestone.id), :class => "btn btn-mini" %> <%= link_to 'Delete Milestone', milestone_url(@milestone.id), :class => "btn btn-mini", method: 'delete', data: { confirm: "Do you really want to delete this milestone?" } %>
+            </p>
+          </div>
+          <div class="well">
+            <p>
+              <b>Project Details:</b>
+            <p><%= link_to @milestone.project.title, project_url(@milestone.project_id) %></p>
+            </p>
+            <p>
+              <b>Due date:</b>
+              <%= @milestone.project.due_date %>
+            </p>
+            <p>
+              <b>Description:</b>
+              <%= @milestone.project.description %>
+            </p>
+            <p>
+              <b>Team:</b>
+              <ul>
+                <% @milestone.project.users.each do |user| %>
+                  <li><%= link_to user.name, user_url(user) %></li>
+                <% end %>
+              </ul>
+            </p>
+          </div>
+        </div>
+        <div class="span8">
+          <div class="well">
+            <h3><b>Task Timeline</b></h3>
+            <% @milestone.tasks.incomplete.order('due_date').due_dates.each do |due_date| %>
+              <h4><%= due_date %></h4>
+              <table class="table table-hover">
+                <tbody>
+                <% @milestone.tasks.where("due_date" => due_date).each do |task| %>
+                  <% if task.due_date <= Date.today %>
+                    <tr class="error">
+                  <% else %>
+                    <tr>
+                  <% end %>
+                  <td>
+                    <ul>
+                      <li>
+                        <b><%= best_in_place task, :description %></b> (<%= best_in_place task, :user_id, :type => :select, :collection => User::list_user_options %> says, "<%= best_in_place task, :status %>")
+                      </li>
+                    </ul>
+                  </td>
+                  <td><%= best_in_place task, :due_date, :type => :date %> | <%= best_in_place task, :complete, :type => :select, :collection => [["incomplete", "Nope"], ["complete", "Yep!"]] %></td>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+            <% end %>
+            <p><button class="btn btn-success", data-toggle="collapse", data-target="#quick_form">+</button></p>
+            <div id="quick_form", class="collapse">
+              <% @task = Task.new %>
+              <%= form_for @task do |f| %>
+                <%= f.hidden_field :project_id, :value => @milestone.project.id %>
+                <%= f.hidden_field :milestone_id, :value => @milestone.id %>
+                <div class="span5">
+                  <%= f.text_field :description, :placeholder => "Description" %>
+                </div>
+                <div id="divdateselect" style="display: none;">
+                  <%= f.date_select :date_created, default:Date.today %>
+                  <%= f.date_select :date_completed, default:Date.today %>
+                </div>
+                <div class="span5">
+                  <%= f.label :due_date, "Due Date:" %>
+                  <%= f.date_select :due_date, :default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
+                </div>
+                <div class="span5">
+                  <%= f.label :user_id, "Assigned To:" %>
+                  <%= f.collection_select :user_id, User.order('name').all, :id, :name %>
+                </div>
+                  <%= f.hidden_field :status, :value => "Update Status!" %>
+                  <%= f.hidden_field :complete, :value => "incomplete" %>
+                <div class="span5">
+                  <%= f.submit "Create Task", :class => "btn btn-mini" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
 
-  <div class="span3">
-
-    <div class="well">
-      <p>
-        <b>Description:</b>
-        <%= @milestone.description %>
-      </p>
-
-      <p>
-        <b>Date created:</b>
-        <%= @milestone.date_created %>
-      </p>
-
-      <p>
-        <b>Due date:</b>
-        <%= @milestone.due_date %>
-      </p>
-
-      <p>
-        <%= link_to "Edit", edit_milestone_url(@milestone.id), :class => "btn btn-mini" %> <%= link_to 'Delete Milestone', milestone_url(@milestone.id), :class => "btn btn-mini", method: 'delete', data: { confirm: "Do you really want to delete this milestone?" } %>
-      </p>
+          <div class="well">
+            <h3><b>Completed Tasks:</b></h3>
+            <table class="table table-hover">
+              <tbody>
+              <% @milestone.tasks.complete.order('due_date').all.each do |task| %>
+                <tr>
+                  <td>
+                    <ul>
+                      <li>
+                        <b><%= task.description %></b> (<%= task.user.name %>)
+                      </li>
+                    <ul>
+                  </td>
+                  <td><%= task.date_completed %></td>
+                  <td><%= link_to 'Delete', task_url(task), :class => "btn btn-mini", method: 'delete', data: { confirm: "Do you really want to delete this task?" } %></td>
+                </tr>
+              <% end %>
+             </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <div class="well">
-      <p>
-        <b>Project Details:</b>
-      <p><%= link_to @milestone.project.title, project_url(@milestone.project_id) %></p>
-      </p>
-
-      <p>
-        <b>Due date:</b>
-        <%= @milestone.project.due_date %>
-      </p>
-
-      <p>
-        <b>Description:</b>
-        <%= @milestone.project.description %>
-      </p>
-
-      <p>
-        <b>Team:</b>
-        <ul>
-          <% @milestone.project.users.each do |user| %>
-            <li><%= link_to user.name, user_url(user) %></li>
-          <% end %>
-        </ul>
-      </p>
-    </div>
-  </div>
-  <div class="span8">
-    <div class="well">
-      <h3><b>Task Timeline</b></h3>
-      <% @milestone.tasks.incomplete.order('due_date').due_dates.each do |due_date| %>
-        <h4><%= due_date %></h4>
-        <table class="table table-hover">
-        <% @milestone.tasks.where("due_date" => due_date).each do |task| %>
-          <tbody>
-          <% if task.due_date <= Date.today %>
-            <tr class="error">
-          <% else %>
-            <tr>
-          <% end %>
-          <td>
-            <ul>
-              <li>
-                <b><%= best_in_place task, :description %></b> (<%= best_in_place task, :user_id, :type => :select, :collection => User::list_user_options %> says, "<%= best_in_place task, :status %>")
-              </li>
-            </ul>
-          </td>
-          <td><%= best_in_place task, :due_date, :type => :date %> | <%= best_in_place task, :complete, :type => :select, :collection => [["incomplete", "Nope"], ["complete", "Yep!"]] %></td>
-          </tr>
-        </tbody>
-      </table>
-      <% end %>
-    <% end %>
-      <p><button class="btn btn-success", data-toggle="collapse", data-target="#quick_form">+</button></p>
-      <div id="quick_form", class="collapse">
-        <% @task = Task.new %>
-        <%= form_for @task do |f| %>
-        <%= f.hidden_field :project_id, :value => @milestone.project.id %>
-        <%= f.hidden_field :milestone_id, :value => @milestone.id %>
-        <div class="span5">
-          <%= f.text_field :description, :placeholder => "Description" %>
-        </div>
-        <div id="divdateselect" style="display: none;">
-          <%= f.date_select :date_created, default:Date.today %>
-          <%= f.date_select :date_completed, default:Date.today %>
-        </div>
-        <div class="span5">
-          <%= f.label :due_date, "Due Date:" %>
-          <%= f.date_select :due_date, :default => Date.today+1, :order => [:day, :month, :year], :start_year => Time.now.year, :end_year => Time.now.year+2 %>
-        </div>
-        <div class="span5">
-        <%= f.label :user_id, "Assigned To:" %>
-        <%= f.collection_select :user_id, User.order('name').all, :id, :name %>
-        </div>
-        <%= f.hidden_field :status, :value => "Update Status!" %>
-        <%= f.hidden_field :complete, :value => "incomplete" %>
-        <div class="span5">
-        <%= f.submit "Create Task", :class => "btn btn-mini" %>
-        </div>
-        <% end %>
-    </div>
-  </div>
-
-  <div class="well">
-    <h3><b>Completed Tasks:</b></h3>
-    <table class="table table-hover">
-    <tbody>
-    <% @milestone.tasks.complete.order('due_date').all.each do |task| %>
-      <tr>
-        <td>
-          <ul>
-            <li>
-              <b><%= task.description %></b> (<%= task.user.name %>)
-            </li>
-          <ul>
-        </td>
-        <td><%= task.date_completed %></td>
-        <td><%= link_to 'Delete', task_url(task), :class => "btn btn-mini", method: 'delete', data: { confirm: "Do you really want to delete this task?" } %></td>
-      </tr>
-    <% end %>
-    </tbody>
-    </table>
   </div>
 </div>
 

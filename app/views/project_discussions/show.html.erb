@@ -1,6 +1,6 @@
 <h1>Discussion</h1>
 
-<h4><%= link_to @project_discussion.user.name, user_url(@project_discussion.user.id) %> has something to say about <%= @project_discussion.project.title %>. </h4>
+<h4><%= link_to @project_discussion.user.name, user_url(@project_discussion.user.id) %> has something to say about <%= link_to @project_discussion.project.title, project_url(@project_discussion.project.id) %>. </h4>
 
 <div class="well">
   <p>
@@ -10,10 +10,10 @@
     <%= @project_discussion.post %>
   </p>
   <p class="text-right">
-    <%= @project_discussion.updated_at %>
+    <%= @project_discussion.created_at.strftime("%b %-d at %l:%M%p") %>
   </p>
 </div>
 
 
-<%= link_to 'Edit', edit_project_discussion_path(@project_discussion) %> |
-<%= link_to 'Back', project_discussions_path %>
+<%= link_to 'Edit', edit_project_discussion_path(@project_discussion), :class => "btn btn-mini" %>
+<%= link_to 'Back to Project', project_url(@project_discussion.project.id), :class => "btn btn-mini" %>
