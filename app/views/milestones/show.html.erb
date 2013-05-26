@@ -50,7 +50,7 @@
               <h4><%= due_date %></h4>
               <table class="table table-hover">
                 <tbody>
-                <% @milestone.tasks.where("due_date" => due_date).each do |task| %>
+                <% @milestone.tasks.incomplete.where("due_date" => due_date).each do |task| %>
                   <% if task.due_date <= Date.today %>
                     <tr class="error">
                   <% else %>
