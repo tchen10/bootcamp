@@ -9,7 +9,7 @@
         <%= @project_discussion.post %>
       </p>
       <p class="text-right">
-        <%= @project_discussion.created_at.strftime("%b %-d at %l:%M%p") %>
+        <%= time_ago_in_words(@project_discussion.created_at) %> ago
       </p>
     </div>
 
@@ -21,7 +21,7 @@
             <h4><%= com.user.name %> says,</h4>
             <p><%= com.post %></p>
             <p class="text-right">
-            <%= com.created_at.strftime("%b %-d at %l:%M%p") %>
+            <%= time_ago_in_words(com.created_at) %> ago
             </p>
           </div>
         <% end %>
@@ -53,7 +53,7 @@
   <div>
     <p class="text-right">
     <%= link_to 'Edit', edit_project_discussion_path(@project_discussion), :class => "btn btn-mini" %>
-    <%= link_to 'Delete Discussion', project_discussion_url, :class => "btn btn-mini", method: :delte, data: {confirm: 'Are you sure?'} %>
+    <%= link_to 'Delete Discussion', project_discussion_url, :class => "btn btn-mini", method: :delete, data: {confirm: 'Are you sure?'} %>
     <%= link_to 'Back to Project', project_url(@project_discussion.project.id), :class => "btn btn-mini" %>
     </p>
   </div>

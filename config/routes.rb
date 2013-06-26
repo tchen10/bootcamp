@@ -85,6 +85,10 @@ BootcampApp::Application.routes.draw do
   #------------------------------
 
   # Routes for the User resource:
+
+  #TASKS
+
+  get '/users/:id/taskhistory', controller: 'users', action: 'taskhistory', as:'taskhistory'
   # CREATE
   get '/users/new', controller: 'users', action: 'new', as: 'new_user'
   post '/users', controller: 'users', action: 'create'

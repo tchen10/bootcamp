@@ -6,7 +6,7 @@
       <div class="well">
         <h4>About <%= link_to dis.project.title, project_url(dis.project_id) %></h4>
         <p><%= dis.post %></p>
-        <p class="text-right"><em><%= dis.user.name %> on <%= dis.created_at.strftime("%b %-d at %l:%M%p") %></em></p>
+        <p class="text-right"><em><%= dis.user.name %>, <%= time_ago_in_words(dis.created_at) %> ago</em></p>
         <p class="text-right"><%= link_to "#{dis.project_comments.count} comments", project_discussion_url(dis.id) %></p>
       </div>
     <% end %>

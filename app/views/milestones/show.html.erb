@@ -6,7 +6,7 @@
           <div class="well">
             <p>
               <b>Description:</b>
-              <%= @milestone.description %>
+              <%= best_in_place @milestone, :description, :type => :textarea %>
             </p>
             <p>
               <b>Date created:</b>
@@ -14,7 +14,7 @@
             </p>
             <p>
               <b>Due date:</b>
-              <%= @milestone.due_date %>
+              <%= best_in_place @milestone, :due_date, :type => :date %>
             </p>
             <p>
               <%= link_to "Edit", edit_milestone_url(@milestone.id), :class => "btn btn-mini" %> <%= link_to 'Delete Milestone', milestone_url(@milestone.id), :class => "btn btn-mini", method: 'delete', data: { confirm: "Do you really want to delete this milestone?" } %>
@@ -63,7 +63,7 @@
                       </li>
                     </ul>
                   </td>
-                  <td><%= best_in_place task, :due_date, :type => :date %> | <%= best_in_place task, :complete, :type => :select, :collection => [["incomplete", "Nope"], ["complete", "Yep!"]] %></td>
+                  <td class="taskdate"><%= best_in_place task, :complete, :type => :select, :collection => [["incomplete", "Standby"], ["complete", "Crushed!"]] %> | <%= best_in_place task, :due_date, :type => :date %> </td>
                   </tr>
                 <% end %>
                 </tbody>
@@ -125,3 +125,14 @@
   </div>
 </div>
 
+<script type="text/javascript">
+$("td.taskdate").hide();
+$("tr").hover(
+  function () {
+    $(this).find("td.taskdate").show();
+  },
+  function () {
+    $(this).find("td.taskdate").hide();
+  }
+);
+</script>

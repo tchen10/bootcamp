@@ -38,9 +38,9 @@
               <% @user.tasks.incomplete.where("due_date" => due_date).each do |task| %>
                 <tbody>
                 <% if task.due_date <= Date.today %>
-                  <tr class="error">
+                  <tr class="error", id="taskrow">
                 <% else %>
-                  <tr>
+                  <tr id="taskrow">
                 <% end %>
                 <td>
                   <ul>
@@ -49,7 +49,7 @@
                     </li>
                   </ul>
                 </td>
-                <td><%= best_in_place task, :due_date, :type => :date, :display_as => :formatted_date %> | <%= best_in_place task, :complete, :type => :select, :collection => [["incomplete", "Nope"], ["complete", "Yep!"]] %></td>
+                <td class="taskdate"><%= best_in_place task, :complete, :type => :select, :collection => [["incomplete", "Standby"], ["complete", "Crushed!"]] %> | <%= best_in_place task, :due_date, :type => :date, :display_as => :formatted_date %></td>
                 </tr>
                 </tbody>
               <% end %>
@@ -93,7 +93,7 @@
             <h3><b>Completed Tasks:</b></h3>
             <table class="table table-hover">
               <tbody>
-              <% @user.tasks.complete.order('due_date').all.each do |task| %>
+              <% @user.tasks.complete.order('due_date').limit(10).each do |task| %>
                 <tr>
                   <td>
                     <ul>
@@ -106,6 +106,11 @@
                   <td><%= link_to 'Delete', task_url(task), :class => "btn btn-mini", method: 'delete', data: { confirm: "Do you really want to delete this task?" } %></td>
                 </tr>
               <% end %>
+                <tr>
+                  <td>
+                    <%= link_to 'View All', taskhistory_url(@user.id) %>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -115,6 +120,17 @@
   </div>
 </div>
 
+<script type="text/javascript">
+$("td.taskdate").hide();
+$("tr").hover(
+  function () {
+    $(this).find("td.taskdate").show();
+  },
+  function () {
+    $(this).find("td.taskdate").hide();
+  }
+);
+</script>
 
 
 

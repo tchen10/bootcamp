@@ -16,6 +16,10 @@ class UsersController < ApplicationController
     @user = User.find_by_id(params[:id])
   end
 
+  def taskhistory
+    @user = User.find_by_id(params[:id])
+  end
+
   def new
     @user = User.new
   end

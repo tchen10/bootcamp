@@ -1,5 +1,5 @@
 class MilestonesController < ApplicationController
-
+  respond_to :html, :json
   def index
     @milestones = Milestone.order('due_date').all
   end
@@ -29,11 +29,8 @@ class MilestonesController < ApplicationController
   def update
     @milestone = Milestone.find_by_id(params[:id])
 
-    if @milestone.update_attributes(params[:milestone])
-      redirect_to :back, :notice => "Milestone updated!"
-    else
-      render 'edit', :notice => "Nice try."
-    end
+    @milestone.update_attributes(params[:milestone])
+    respond_with @milestone
   end
 
   def destroy
