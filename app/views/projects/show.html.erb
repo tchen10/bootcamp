@@ -99,7 +99,7 @@
             </thead>
             <tbody>
               <% @project.milestones.order('due_date').all.each do |milestone| %>
-                <% if milestone.due_date <= Date.today %>
+                <% if milestone.due_date <= Date.today && milestone.tasks.complete.count != milestone.tasks.count %>
                   <tr class="error">
                 <% else %>
                   <tr>

@@ -82,6 +82,9 @@ BootcampApp::Application.routes.draw do
 
   #DISCUSSIONS
   get '/projects/:id/discussion', controller: 'projects', action:'discussion', as: 'discuss_project'
+
+  # PROJECT ARCHIVE
+  get '/projects-archive', controller: 'projects', action: 'archive', as: 'project_archive'
   #------------------------------
 
   # Routes for the User resource:

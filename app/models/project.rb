@@ -23,7 +23,7 @@ class Project < ActiveRecord::Base
     return complete
   end
 
-    def Project.incomplete
+  def Project.incomplete
     incomplete = []
     Project.all.each do |project|
       unless project.recent_status.description == "Complete"

@@ -43,4 +43,8 @@ class ProjectsController < ApplicationController
   def discussion
     @project = Project.find_by_id(params[:id])
   end
+
+  def archive
+
+  end
 end

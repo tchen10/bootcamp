@@ -17,7 +17,7 @@
     </thead>
 
     <tbody>
-    <% @milestones.each do |milestone| %>
+    <% Milestone.incomplete.each do |milestone| %>
       <% if milestone.due_date <= Date.today %>
         <tr class="error">
       <% else %>
