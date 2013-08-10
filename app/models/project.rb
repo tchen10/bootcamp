@@ -16,8 +16,10 @@ class Project < ActiveRecord::Base
   def Project.complete
     complete = []
     Project.all.each do |project|
-      if project.recent_status.description == "Complete"
-        complete << project
+      if project.recent_status.present?
+        if project.recent_status.description == "Complete"
+          complete << project
+        end
       end
     end
     return complete
@@ -26,8 +28,10 @@ class Project < ActiveRecord::Base
   def Project.incomplete
     incomplete = []
     Project.all.each do |project|
-      unless project.recent_status.description == "Complete"
-        incomplete << project
+      if project.recent_status.present?
+        unless project.recent_status.description == "Complete"
+          incomplete << project
+        end
       end
     end
     return incomplete
