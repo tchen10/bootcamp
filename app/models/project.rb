@@ -13,4 +13,24 @@ class Project < ActiveRecord::Base
     return self.statuses.last
   end
 
+  def Project.complete
+    complete = []
+    Project.all.each do |project|
+      if project.recent_status.description == "Complete"
+        complete << project
+      end
+    end
+    return complete
+  end
+
+    def Project.incomplete
+    incomplete = []
+    Project.all.each do |project|
+      unless project.recent_status.description == "Complete"
+        incomplete << project
+      end
+    end
+    return incomplete
+  end
+
 end

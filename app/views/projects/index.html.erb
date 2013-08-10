@@ -16,7 +16,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @projects.each do |project| %>
+          <% Project.incomplete.each do |project| %>
           <% if project.due_date <= Date.today %>
             <tr class="error">
           <% else %>
@@ -36,6 +36,38 @@
             <% end %>
             <td><%= project.tasks.complete.count %> of <%= project.tasks.count %></td>
 
+            <td><%= link_to 'Edit', edit_project_url(project), :class => "btn btn-mini" %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <h1>Completed Projects</h1>
+    <div class="well">
+      <table class = "table table-hover">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Team</th>
+            <th>Due date</th>
+            <th>Date Completed</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% Project.complete.each do |project| %>
+            <tr>
+            <td><%= link_to project.title, project_url(project) %></td>
+            <td><% project.users.each do |user| %>
+            <p><%= link_to user.name, user_url(user) %><p>
+            <% end %></td>
+            <td><%= project.due_date %></td>
+            <% if project.recent_status.present? %>
+              <td><%= project.recent_status.date %></td>
+            <% else %>
+              <td></td>
+              <td></td>
+            <% end %>
             <td><%= link_to 'Edit', edit_project_url(project), :class => "btn btn-mini" %></td>
           </tr>
           <% end %>
